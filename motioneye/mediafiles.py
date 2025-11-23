@@ -28,7 +28,6 @@ from hashlib import sha1
 from io import BytesIO
 from shlex import quote
 from signal import SIGTERM
-from stat import S_ISDIR, S_ISREG
 from time import time
 from zipfile import ZipFile
 
@@ -105,20 +104,34 @@ _timelapse_data = None
 _ffmpeg_binary_cache = None
 
 
-def findfiles(path: str) -> typing.List[tuple]:
+def findfiles(path: str, exts: typing.List[str]) -> typing.List[tuple]:
     files = []
-    for name in os.listdir(path):
+    for entry in os.scandir(path):
         # ignore hidden files/dirs and other unwanted files
-        if name.startswith('.') or name == 'lastsnap.jpg':
+        if entry.name.startswith('.') or entry.name == 'lastsnap.jpg':
             continue
-        pathname = os.path.join(path, name)
-        st = os.lstat(pathname)
-        mode = st.st_mode
-        if S_ISDIR(mode):
-            files.extend(findfiles(pathname))
 
-        elif S_ISREG(mode):
-            files.append((pathname, name, st))
+        # recurse into subdirectories
+        if entry.is_dir(follow_symlinks=False):
+            files.extend(findfiles(entry.path, exts))
+            continue
+
+        # skip non-files
+        if not entry.is_file(follow_symlinks=False):
+            continue
+
+        # filter by extension before calling stat
+        if not [e for e in exts if entry.path.lower().endswith(e)]:
+            continue
+
+        # stat call may fail due to race conditions or permission issues
+        try:
+            st = entry.stat(follow_symlinks=False)
+        except Exception as e:
+            logging.error(f'stat failed: {e}')
+            continue
+
+        files.append((entry.path, st))
 
     return files
 
@@ -126,47 +139,42 @@ def findfiles(path: str) -> typing.List[tuple]:
 def _list_media_files(
     directory: str, exts: typing.List[str], prefix: str = None
 ) -> typing.List[tuple]:
-    media_files = []
-
     if prefix is not None:
         if prefix == 'ungrouped':
             prefix = ''
 
         root = os.path.join(directory, prefix)
         if not os.path.exists(root):
-            return media_files
+            return []
 
-        for name in os.listdir(root):
+        media_files = []
+        for entry in os.scandir(root):
             # ignore hidden files/dirs and other unwanted files
-            if name.startswith('.') or name == 'lastsnap.jpg':
+            if entry.name.startswith('.') or entry.name == 'lastsnap.jpg':
                 continue
 
-            full_path = os.path.join(root, name)
+            # skip non-files
+            if not entry.is_file(follow_symlinks=False):
+                continue
+
+            # filter by extension before calling stat
+            if not [e for e in exts if entry.path.lower().endswith(e)]:
+                continue
+
+            # stat call may fail due to race conditions or permission issues
             try:
-                st = os.stat(full_path)
-
+                st = entry.stat(follow_symlinks=False)
             except Exception as e:
-                logging.error('stat failed: ' + str(e))
+                logging.error(f'stat failed: {e}')
                 continue
 
-            if not S_ISREG(st.st_mode):  # not a regular file
-                continue
+            media_files.append((entry.path, st))
 
-            full_path_lower = full_path.lower()
-            if not [e for e in exts if full_path_lower.endswith(e)]:
-                continue
-
-            media_files.append((full_path, st))
+        return media_files
 
     else:
-        for full_path, name, st in findfiles(directory):
-            full_path_lower = full_path.lower()
-            if not [e for e in exts if full_path_lower.endswith(e)]:
-                continue
-
-            media_files.append((full_path, st))
-
-    return media_files
+        # If no prefix, recurse into subdirectories
+        return findfiles(directory, exts)
 
 
 def _remove_older_files(
