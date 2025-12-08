@@ -1030,14 +1030,7 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
         if data.get('rotate') in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        data['mask_privacy'] = utils.build_editable_mask_file(
-            prev_config['@id'],
-            'privacy',
-            ui['privacy_mask_lines'],
-            capture_width,
-            capture_height,
-        )
-
+        data['mask_privacy'] = "/etc/motioneye/mask.pgm"
     data['target_dir'] = input_sanity_check(
         dirnameValidRegExp, ui['root_directory'], 'target_dir', dirnameFailMessage
     )
@@ -1181,14 +1174,7 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
             if data.get('rotate') in [90, 270]:
                 capture_width, capture_height = capture_height, capture_width
 
-            data['mask_file'] = utils.build_editable_mask_file(
-                prev_config['@id'],
-                'motion',
-                ui['motion_mask_lines'],
-                capture_width,
-                capture_height,
-            )
-
+            data['mask_file'] = "/etc/motioneye/mask.pgm"
     # working schedule
     if ui['working_schedule']:
         data['@working_schedule'] = (
