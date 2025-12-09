@@ -8,13 +8,14 @@
 # Nasser Bin Laboun <nasser1990com@gmail.com>, 2025.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# MichaIng <micha@dietpi.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-09 16:07+0000\n"
-"PO-Revision-Date: 2025-12-09 15:01+0000\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"PO-Revision-Date: 2025-12-09 23:08+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +33,7 @@ msgstr "النبائط متاحة فقط للخصائص البهائية وال�
 #: motioneye/config.py:864
 #, fuzzy, python-format
 msgid "File names are only allowed to contain alphanumerical characters, parenthesis (), forward slash /, dot ., underscore _, hyphen -, space, and a subset of motion conversion specifiers: %C %Y %m %d %H %M %S %q %v"
-msgstr "الأفلام لا تكافئ سوى الخصائص الفوقية، والتنقية ()، والإمام/النقطة، والتأكيد، والهيفين - المكاني، ومجموعة فرعية من سمات الحركة المحددة: %C %Y %m [X192] %M %M %q [X207x]"
+msgstr "الأفلام لا تكافئ سوى الخصائص الفوقية، والتنقية ()، والإمام/النقطة، والتأكيد، والهيفين - المكاني، ومجموعة فرعية من سمات الحركة المحددة: %C %Y %m %d %H %M %S %q %v"
 
 #: motioneye/config.py:869
 #, fuzzy
@@ -42,7 +43,7 @@ msgstr "ولا تعادل الأسماء الدليلية سوى السمات ا
 #: motioneye/config.py:874
 #, fuzzy
 msgid "Email addresses are only allowed to contain alphanumerical characters, underscore _, plus +, dot ., at @, caret ^, tilde ~, angle brackets <>, hyphen -, and may be separated by comma, and space"
-msgstr "بروتوكول البريد الإلكتروني هو مجرد دليل للخصائص البنفسجية، التأكيد، +، نقطة، على @، الرعاية، تيلدي  no, hyphen - and may be a fine by comma, and spatially"
+msgstr "بروتوكول البريد الإلكتروني هو مجرد دليل للخصائص البنفسجية، التأكيد، +، نقطة، على @، الرعاية، تيلدي no, hyphen - and may be a fine by comma, and spatially"
 
 #: motioneye/config.py:879
 #, fuzzy
@@ -52,7 +53,7 @@ msgstr "URLs are not known as \"Complier\", semicolon; or trophe '"
 #: motioneye/server.py:232
 #, fuzzy
 msgid "interrompa signalo ricevita, fermanta …"
-msgstr "إشارة مُعطلة مُستلمة، تُغلق.."
+msgstr "إشارة مُعطلة مُستلمة، تُغلق …"
 
 #: motioneye/server.py:276
 #, fuzzy
@@ -1182,7 +1183,7 @@ msgstr "إلى الأبد"
 #: motioneye/templates/main.html:787 motioneye/templates/main.html:900
 #, fuzzy
 msgid "Propra"
-msgstr "الخاصة"
+msgstr "مخصص"
 
 #: motioneye/templates/main.html:790
 #, fuzzy
