@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-05 22:22+0000\n"
-"PO-Revision-Date: 2025-12-09 01:40+0000\n"
+"PO-Revision-Date: 2025-12-09 15:00+0000\n"
 "Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/ar/>\n"
 "Language: ar\n"
@@ -224,8 +224,9 @@ msgid "Sciiga retpoŝto fiaskis:"
 msgstr "فشل بريد إلكتروني:"
 
 #: motioneye/static/js/main.js:3122
+#, fuzzy
 msgid "Notification email succeeded!"
-msgstr ""
+msgstr "البريد الإلكتروني يشاهد!"
 
 #: motioneye/static/js/main.js:3138
 #, fuzzy
@@ -270,12 +271,12 @@ msgstr "هل تتخلص حقاً من كل أفلام (X33X)؟?"
 #: motioneye/static/js/main.js:3252
 #, fuzzy
 msgid "Ĉu vere forigi ĉiujn ne grupigitajn bildojn?"
-msgstr "هل تريد حقًا حذف جميع الصور غير المجمعة؟"
+msgstr "هل حقاً تخلصت من كل الصور؟?"
 
 #: motioneye/static/js/main.js:3255
 #, fuzzy
 msgid "Ĉu vere forigi ĉiujn ne grupigitajn filmojn?"
-msgstr "هل تريد حقًا حذف جميع الأفلام غير المجمعة؟"
+msgstr "هل حقاً تخلصت من كل الأفلام؟?"
 
 #: motioneye/static/js/main.js:3369
 #, fuzzy
@@ -316,17 +317,17 @@ msgstr "حصلت على الفيلم."
 #: motioneye/static/js/main.js:3671
 #, fuzzy
 msgid "Reto eraro okazis."
-msgstr "حدث خطأ في الشبكة."
+msgstr "حدث خطأ."
 
 #: motioneye/static/js/main.js:3674
 #, fuzzy
 msgid "Malkodado-eraro aŭ neprogresinta funkcio."
-msgstr "خطأ في فك التشفير أو وظيفة غير متوقعة."
+msgstr "تناقص الخطأ أو وظيفة غير مثمرة."
 
 #: motioneye/static/js/main.js:3677
 #, fuzzy
 msgid "Formato ne subtenata aŭ neatingebla/netaŭga por ludado."
-msgstr "التنسيق غير مدعوم أو يتعذر الوصول إليه / غير مناسب للتشغيل."
+msgstr "شريك غير مدعم أو غير مناسب للعب."
 
 #: motioneye/static/js/main.js:3680
 #, fuzzy
@@ -351,12 +352,12 @@ msgstr "اللعب"
 #: motioneye/static/js/main.js:3696
 #, fuzzy
 msgid "ludi * 5 kaj enĉenigi"
-msgstr "اللعب * 5 وسلسلة"
+msgstr "اللعب 5 والدخل"
 
 #: motioneye/static/js/main.js:3701
 #, fuzzy
 msgid "sekva bildo"
-msgstr "الصورة التالية"
+msgstr "الصورة"
 
 #: motioneye/static/js/main.js:3824
 #, fuzzy
@@ -366,17 +367,17 @@ msgstr "أغلق"
 #: motioneye/static/js/main.js:3825 motioneye/static/js/main.js:4386
 #, fuzzy
 msgid "Elŝuti"
-msgstr "تنزيل"
+msgstr "تحميل"
 
 #: motioneye/static/js/main.js:3833 motioneye/static/js/main.js:4389
 #, fuzzy
 msgid "Forigi"
-msgstr "إزالة"
+msgstr "إزالة الألغام"
 
 #: motioneye/static/js/main.js:3877
 #, fuzzy
 msgid "Kamerao tipo"
-msgstr "نوع الكاميرا"
+msgstr "نوع الدائرة"
 
 #: motioneye/static/js/main.js:3879
 #, fuzzy
