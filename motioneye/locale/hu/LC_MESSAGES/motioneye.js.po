@@ -7,13 +7,14 @@
 # Robert Brutoczki <robibrutoczki@googlemail.com>, 2025.
 # Weblate <noreply-mt-weblate@weblate.org>, 2025.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
+# MichaIng <micha@dietpi.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 16:07+0000\n"
-"PO-Revision-Date: 2025-12-09 15:00+0000\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"PO-Revision-Date: 2025-12-09 23:07+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -669,7 +670,7 @@ msgstr "közel"
 #: motioneye/static/js/ui.js:1017 motioneye/static/js/ui.js:1024
 #, fuzzy
 msgid "Ne"
-msgstr "Nem nem nem"
+msgstr "Nem"
 
 #: motioneye/static/js/ui.js:1018 motioneye/static/js/ui.js:1025
 #, fuzzy
@@ -684,7 +685,7 @@ msgstr "Jó jól"
 #: l10n/v4l2.js:4
 #, fuzzy
 msgid "Auto Exposure"
-msgstr "Auto Exposure"
+msgstr "Automatikus expozíció"
 
 #: l10n/v4l2.js:5
 #, fuzzy
@@ -704,12 +705,12 @@ msgstr "Ellentét"
 #: l10n/v4l2.js:8
 #, fuzzy
 msgid "Exposure Absolute"
-msgstr "Pontosan 100%"
+msgstr "Abszolút expozíció"
 
 #: l10n/v4l2.js:9
 #, fuzzy
 msgid "Exposure Auto"
-msgstr "Exposure Auto"
+msgstr "Expozíció automatikus"
 
 #: l10n/v4l2.js:10
 #, fuzzy
@@ -734,7 +735,7 @@ msgstr "Focus Auto"
 #: l10n/v4l2.js:14
 #, fuzzy
 msgid "Gain"
-msgstr "Gain"
+msgstr "Nyereség"
 
 #: l10n/v4l2.js:15
 #, fuzzy
@@ -764,7 +765,7 @@ msgstr "Az abszolút"
 #: l10n/v4l2.js:20
 #, fuzzy
 msgid "Power Line Frequency"
-msgstr "Power Line Frequency Frequency Frekvencia"
+msgstr "Hálózati frekvencia"
 
 #: l10n/v4l2.js:21
 #, fuzzy
