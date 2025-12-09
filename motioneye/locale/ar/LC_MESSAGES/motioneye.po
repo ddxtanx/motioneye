@@ -154,7 +154,6 @@ msgid "preferoj de uzanto"
 msgstr "أفضليات المستعملين"
 
 #: motioneye/templates/main.html:128
-#, fuzzy
 msgid "Preferoj"
 msgstr "الامتيازات"
 
