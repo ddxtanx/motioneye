@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-12-05 22:22+0000\n"
+"POT-Creation-Date: 2025-12-09 16:07+0000\n"
 "PO-Revision-Date: 2025-12-09 15:00+0000\n"
 "Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/tr/>\n"
@@ -666,8 +666,8 @@ msgstr "Örneğin. http://ornek.com/notify/"
 
 #: motioneye/templates/main.html:570
 #, python-format
-msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%f = dosiera vojo"
-msgstr "Hareket algılandığında aktarılacak URL; aşağıdaki özel kısayollar kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası, %%v = olay numarası,%%f = dosya yolu"
+msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero,%f = dosiera vojo"
+msgstr ""
 
 #: motioneye/templates/main.html:573 motioneye/templates/main.html:1141
 #: motioneye/templates/main.html:1186
@@ -696,8 +696,8 @@ msgstr "emir…"
 
 #: motioneye/templates/main.html:595
 #, python-format
-msgid "Komando por esti plenumita post la kreo de plurmedia dosiero. Pluraj komandoj povas esti apartigitaj per punktoknomo; ne uzu punktoknomo en komandojn; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra numero , %%v = okaza numero, %%f = dosiera vojo"
-msgstr "Multimedya dosyası oluşturulduktan sonra yürütülecek komut. Birkaç komut bir dönem adıyla ayrılabilir; komutlarda nokta adı kullanmayın; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası, %%v = olay numarası, %%f = dosya yolu"
+msgid "Komando por esti plenumita post la kreo de plurmedia dosiero. Pluraj komandoj povas esti apartigitaj per punktoknomo; ne uzu punktoknomo en komandojn; la sekvaj specialaj tokensoj estas akceptitaj: %Y = jaro, %m = monato, %d = tago, %H = horo, %M = minuto, %S = sekundo, %q = kadra numero , %v = okaza numero, %f = dosiera vojo"
+msgstr ""
 
 #: motioneye/templates/main.html:605
 msgid "elektu kiajn informojn montras sur la kaptitaj kadroj"
@@ -734,8 +734,8 @@ msgstr "kendi metni…"
 
 #: motioneye/templates/main.html:625
 #, python-format
-msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
-msgstr "Özel sol metni tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası,%%T = HH:MM:SS, \\n = yeni satır"
+msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero,%T = HH:MM:SS, \\n = nova linio"
+msgstr ""
 
 #: motioneye/templates/main.html:628
 msgid "Dekstra Teksto"
@@ -747,8 +747,8 @@ msgstr "Filmlerde ve görüntülerde gösterilen metni sağ alt köşede ayarlar
 
 #: motioneye/templates/main.html:642
 #, python-format
-msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
-msgstr "Özel sağ metni tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası,%%T =HH:MM:SS, \\n = yeni satır"
+msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero,%T = HH:MM:SS, \\n = nova linio"
+msgstr ""
 
 #: motioneye/templates/main.html:645
 msgid "Teksta Skalo"
@@ -868,8 +868,8 @@ msgstr "dosya adı şablonu…"
 
 #: motioneye/templates/main.html:749
 #, python-format
-msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr "Görüntü dosyaları (JPEG) için ad şablonunu tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası, / = alt dizin."
+msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero, / = subdosierujo."
+msgstr ""
 
 #: motioneye/templates/main.html:752
 msgid "Bildkvalito"
@@ -999,8 +999,8 @@ msgstr "Film Dosya Adı"
 
 #: motioneye/templates/main.html:818
 #, python-format
-msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr "Film dosyalarının ad şablonunu tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası, / = alt dizin."
+msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero, / = subdosierujo."
+msgstr ""
 
 #: motioneye/templates/main.html:821
 msgid "Rekta kopia filmeto"
@@ -1398,8 +1398,8 @@ msgstr "Örneğin. http://ornek.com/sciigi/"
 
 #: motioneye/templates/main.html:1138
 #, python-format
-msgid "URL por esti petita kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
-msgstr "Hareket algılandığında istenecek URL; aşağıdaki özel kısayollar kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası , %%v = rastgele sayı"
+msgid "URL por esti petita kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj: %Y = jaro, %m = monato, %d = tago, %H = horo, %M = minuto, %S = sekundo, %q = kadro-numero, %v = okaza numero"
+msgstr ""
 
 #: motioneye/templates/main.html:1150 motioneye/templates/main.html:1195
 msgid "La HTTP-metodo por uzi kiam vi petas URL (la donitaj URL-parametroj estos transdonitaj kiel indikite ĉi tie)."
@@ -1423,8 +1423,8 @@ msgstr "emret…"
 
 #: motioneye/templates/main.html:1163
 #, python-format
-msgid "Komando por esti lanĉa kiam moviĝo estas detektita; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokomojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
-msgstr "Hareket algılandığında çalıştırılacak komut; birden fazla komut iki nokta üst üste işaretiyle ayrılabilir; komutlarda noktalı virgül kullanmayın; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası , %%v = rastgele sayı"
+msgid "Komando por esti lanĉa kiam moviĝo estas detektita; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokomojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %Y = jaro, %m = monato, %d = tago, %H = horo, %M = minuto, %S = sekundo, %q = kadro-numero, %v = okaza numero"
+msgstr ""
 
 #: motioneye/templates/main.html:1203
 msgid "Ebligu ĉi tion, se vi volas lanĉi komandon ĉiufoje kiam movada evento finiĝos."
@@ -1432,8 +1432,8 @@ msgstr "Bir hareket olayı her tamamlandığında bir komut çalıştırmak isti
 
 #: motioneye/templates/main.html:1208
 #, python-format
-msgid "Komando por esti lanĉa kiam moviĝokazaĵo finiĝas; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokompojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = dato, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra nombro."
-msgstr "Bir hareket olayı sona erdiğinde başlatılacak komut; birden fazla komut iki nokta üst üste işaretiyle ayrılabilir; komutlarla nokta kompozisyonları kullanmayın; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl, %%m = ay, %%d = tarih, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası."
+msgid "Komando por esti lanĉa kiam moviĝokazaĵo finiĝas; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokompojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %Y = jaro, %m = monato, %d = dato, %H = horo, %M = minuto, %S = sekundo, %q = kadra nombro."
+msgstr ""
 
 #: motioneye/templates/main.html:1218
 msgid "Ebligu ĉi tion, se vi volas difini ĉiusemajnan horaron por detekto de moviĝo."
@@ -1566,3 +1566,39 @@ msgstr "bir saniye"
 #: motioneye/utils/dtconv.py:153
 msgid "minus"
 msgstr "eksi"
+
+#, python-format
+#~ msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%f = dosiera vojo"
+#~ msgstr "Hareket algılandığında aktarılacak URL; aşağıdaki özel kısayollar kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası, %%v = olay numarası,%%f = dosya yolu"
+
+#, python-format
+#~ msgid "Komando por esti plenumita post la kreo de plurmedia dosiero. Pluraj komandoj povas esti apartigitaj per punktoknomo; ne uzu punktoknomo en komandojn; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra numero , %%v = okaza numero, %%f = dosiera vojo"
+#~ msgstr "Multimedya dosyası oluşturulduktan sonra yürütülecek komut. Birkaç komut bir dönem adıyla ayrılabilir; komutlarda nokta adı kullanmayın; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası, %%v = olay numarası, %%f = dosya yolu"
+
+#, python-format
+#~ msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
+#~ msgstr "Özel sol metni tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası,%%T = HH:MM:SS, \\n = yeni satır"
+
+#, python-format
+#~ msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
+#~ msgstr "Özel sağ metni tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası,%%T =HH:MM:SS, \\n = yeni satır"
+
+#, python-format
+#~ msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
+#~ msgstr "Görüntü dosyaları (JPEG) için ad şablonunu tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası, / = alt dizin."
+
+#, python-format
+#~ msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
+#~ msgstr "Film dosyalarının ad şablonunu tanımlar; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl,%%m = ay,%%d = gün,%%H = saat,%%M = dakika,%%S = saniye,%%q = çerçeve numarası, %%v = olay numarası, / = alt dizin."
+
+#, python-format
+#~ msgid "URL por esti petita kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
+#~ msgstr "Hareket algılandığında istenecek URL; aşağıdaki özel kısayollar kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası , %%v = rastgele sayı"
+
+#, python-format
+#~ msgid "Komando por esti lanĉa kiam moviĝo estas detektita; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokomojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
+#~ msgstr "Hareket algılandığında çalıştırılacak komut; birden fazla komut iki nokta üst üste işaretiyle ayrılabilir; komutlarda noktalı virgül kullanmayın; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl, %%m = ay, %%d = gün, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası , %%v = rastgele sayı"
+
+#, python-format
+#~ msgid "Komando por esti lanĉa kiam moviĝokazaĵo finiĝas; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokompojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = dato, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra nombro."
+#~ msgstr "Bir hareket olayı sona erdiğinde başlatılacak komut; birden fazla komut iki nokta üst üste işaretiyle ayrılabilir; komutlarla nokta kompozisyonları kullanmayın; aşağıdaki özel belirteçler kabul edilir: %%Y = yıl, %%m = ay, %%d = tarih, %%H = saat, %%M = dakika, %%S = saniye, %%q = çerçeve numarası."

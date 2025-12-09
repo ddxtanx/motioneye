@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-12-05 22:22+0000\n"
+"POT-Creation-Date: 2025-12-09 16:07+0000\n"
 "PO-Revision-Date: 2025-05-01 12:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/ta/>\n"
@@ -658,8 +658,8 @@ msgstr "எ.கா. http://example.com/notify/"
 
 #: motioneye/templates/main.html:570
 #, python-format
-msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%f = dosiera vojo"
-msgstr "இயக்கம் கண்டறியப்படும்போது மாற்ற URL; பின்வரும் சிறப்பு குறுக்குவழிகள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% v = நிகழ்வு எண், %% f = கோப்பு வழி"
+msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero,%f = dosiera vojo"
+msgstr ""
 
 #: motioneye/templates/main.html:573 motioneye/templates/main.html:1141
 #: motioneye/templates/main.html:1186
@@ -688,8 +688,8 @@ msgstr "ஒழுங்கு …"
 
 #: motioneye/templates/main.html:595
 #, python-format
-msgid "Komando por esti plenumita post la kreo de plurmedia dosiero. Pluraj komandoj povas esti apartigitaj per punktoknomo; ne uzu punktoknomo en komandojn; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra numero , %%v = okaza numero, %%f = dosiera vojo"
-msgstr "மல்டிமீடியா கோப்பை உருவாக்கிய பிறகு நிறைவு செய்ய கட்டளை. பல கட்டளைகளை ஒரு புள்ளி பெயரால் பிரிக்கலாம்; ஒரு புள்ளி பெயரை கட்டளைகளில் பயன்படுத்த வேண்டாம்; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = அவ்வப்போது எண், %% f = கோப்பு வழி"
+msgid "Komando por esti plenumita post la kreo de plurmedia dosiero. Pluraj komandoj povas esti apartigitaj per punktoknomo; ne uzu punktoknomo en komandojn; la sekvaj specialaj tokensoj estas akceptitaj: %Y = jaro, %m = monato, %d = tago, %H = horo, %M = minuto, %S = sekundo, %q = kadra numero , %v = okaza numero, %f = dosiera vojo"
+msgstr ""
 
 #: motioneye/templates/main.html:605
 msgid "elektu kiajn informojn montras sur la kaptitaj kadroj"
@@ -726,8 +726,8 @@ msgstr "தனிப்பயன் உரை …"
 
 #: motioneye/templates/main.html:625
 #, python-format
-msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
-msgstr "தனிப்பயன் இடது உரையை வரையறுக்கிறது; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %%Y = ஆண்டு, %%m = மாதம், %%d = நாள், %%H = மணிநேரம், %%m = மணித்துளி, %%S = நொடிகள், %%q = சட்டம் எண், %%v = நிகழ்வு எண், %%T = HH:MM:SS, \\n = புதிய வரி"
+msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero,%T = HH:MM:SS, \\n = nova linio"
+msgstr ""
 
 #: motioneye/templates/main.html:628
 msgid "Dekstra Teksto"
@@ -739,8 +739,8 @@ msgstr "திரைப்படங்கள் மற்றும் படங�
 
 #: motioneye/templates/main.html:642
 #, python-format
-msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
-msgstr "தனிப்பயன் சரியான உரையை வரையறுக்கிறது; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %%Y = ஆண்டு, %%m = மாதம், %%d = நாள், %%H = மணிநேரம், %%M = மணித்துளி, %%S = நொடிகள், %%q = சட்டம் எண், %%v = நிகழ்வுண், %% T = HH: MM: SS, \\n = புதிய வரி"
+msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero,%T = HH:MM:SS, \\n = nova linio"
+msgstr ""
 
 #: motioneye/templates/main.html:645
 msgid "Teksta Skalo"
@@ -860,8 +860,8 @@ msgstr "கோப்பு பெயர் வார்ப்புரு …"
 
 #: motioneye/templates/main.html:749
 #, python-format
-msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr "படக் கோப்புகளுக்கான பெயர் வார்ப்புருவை வரையறுக்கிறது (JPEG); பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = நிகழ்வு எண், / = துணை அடைவு."
+msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero, / = subdosierujo."
+msgstr ""
 
 #: motioneye/templates/main.html:752
 msgid "Bildkvalito"
@@ -991,8 +991,8 @@ msgstr "திரைப்பட கோப்பு பெயர்"
 
 #: motioneye/templates/main.html:818
 #, python-format
-msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr "மூவி கோப்புகளுக்கான பெயர் வார்ப்புருவை வரையறுக்கிறது; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = நிகழ்வு எண், / = துணை அடைவு."
+msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%Y = jaro,%m = monato,%d = tago,%H = horo,%M = minuto,%S = sekundo,%q = kadro numero,%v = evento numero, / = subdosierujo."
+msgstr ""
 
 #: motioneye/templates/main.html:821
 msgid "Rekta kopia filmeto"
@@ -1390,8 +1390,8 @@ msgstr "எ.கா. http://ekzemplo.com/sciigi/"
 
 #: motioneye/templates/main.html:1138
 #, python-format
-msgid "URL por esti petita kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
-msgstr "இயக்கம் கண்டறியப்படும்போது முகவரி கோரப்பட வேண்டும்; பின்வரும் சிறப்பு குறுக்குவழிகள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = அவ்வப்போது எண்"
+msgid "URL por esti petita kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj: %Y = jaro, %m = monato, %d = tago, %H = horo, %M = minuto, %S = sekundo, %q = kadro-numero, %v = okaza numero"
+msgstr ""
 
 #: motioneye/templates/main.html:1150 motioneye/templates/main.html:1195
 msgid "La HTTP-metodo por uzi kiam vi petas URL (la donitaj URL-parametroj estos transdonitaj kiel indikite ĉi tie)."
@@ -1415,8 +1415,8 @@ msgstr "கட்டளை…"
 
 #: motioneye/templates/main.html:1163
 #, python-format
-msgid "Komando por esti lanĉa kiam moviĝo estas detektita; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokomojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
-msgstr "இயக்கம் கண்டறியப்படும்போது தொடங்கப்பட வேண்டும்; பல கட்டளைகளை ஒரு பெருங்குடலால் பிரிக்கலாம்; கட்டளைகளுடன் அரைக்காற்புள்ளிகளைப் பயன்படுத்த வேண்டாம்; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = அவ்வப்போது எண்"
+msgid "Komando por esti lanĉa kiam moviĝo estas detektita; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokomojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %Y = jaro, %m = monato, %d = tago, %H = horo, %M = minuto, %S = sekundo, %q = kadro-numero, %v = okaza numero"
+msgstr ""
 
 #: motioneye/templates/main.html:1203
 msgid "Ebligu ĉi tion, se vi volas lanĉi komandon ĉiufoje kiam movada evento finiĝos."
@@ -1424,8 +1424,8 @@ msgstr "ஒவ்வொரு முறையும் ஒரு இயக்க
 
 #: motioneye/templates/main.html:1208
 #, python-format
-msgid "Komando por esti lanĉa kiam moviĝokazaĵo finiĝas; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokompojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = dato, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra nombro."
-msgstr "ஒரு மோசன் நிகழ்வு முடிவடையும் போது தொடங்கப்பட வேண்டும்; பல கட்டளைகளை ஒரு பெருங்குடலால் பிரிக்கலாம்; கட்டளைகளுடன் புள்ளி கலவைகளைப் பயன்படுத்த வேண்டாம்; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% M = மாதம், %%d = தேதி, %% H = மணிநேரம், %% M = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண்."
+msgid "Komando por esti lanĉa kiam moviĝokazaĵo finiĝas; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokompojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %Y = jaro, %m = monato, %d = dato, %H = horo, %M = minuto, %S = sekundo, %q = kadra nombro."
+msgstr ""
 
 #: motioneye/templates/main.html:1218
 msgid "Ebligu ĉi tion, se vi volas difini ĉiusemajnan horaron por detekto de moviĝo."
@@ -1558,3 +1558,39 @@ msgstr "ஒரு இரண்டாவது"
 #: motioneye/utils/dtconv.py:153
 msgid "minus"
 msgstr "கழித்தல்"
+
+#, python-format
+#~ msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%f = dosiera vojo"
+#~ msgstr "இயக்கம் கண்டறியப்படும்போது மாற்ற URL; பின்வரும் சிறப்பு குறுக்குவழிகள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% v = நிகழ்வு எண், %% f = கோப்பு வழி"
+
+#, python-format
+#~ msgid "Komando por esti plenumita post la kreo de plurmedia dosiero. Pluraj komandoj povas esti apartigitaj per punktoknomo; ne uzu punktoknomo en komandojn; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra numero , %%v = okaza numero, %%f = dosiera vojo"
+#~ msgstr "மல்டிமீடியா கோப்பை உருவாக்கிய பிறகு நிறைவு செய்ய கட்டளை. பல கட்டளைகளை ஒரு புள்ளி பெயரால் பிரிக்கலாம்; ஒரு புள்ளி பெயரை கட்டளைகளில் பயன்படுத்த வேண்டாம்; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = அவ்வப்போது எண், %% f = கோப்பு வழி"
+
+#, python-format
+#~ msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
+#~ msgstr "தனிப்பயன் இடது உரையை வரையறுக்கிறது; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %%Y = ஆண்டு, %%m = மாதம், %%d = நாள், %%H = மணிநேரம், %%m = மணித்துளி, %%S = நொடிகள், %%q = சட்டம் எண், %%v = நிகழ்வு எண், %%T = HH:MM:SS, \\n = புதிய வரி"
+
+#, python-format
+#~ msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
+#~ msgstr "தனிப்பயன் சரியான உரையை வரையறுக்கிறது; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %%Y = ஆண்டு, %%m = மாதம், %%d = நாள், %%H = மணிநேரம், %%M = மணித்துளி, %%S = நொடிகள், %%q = சட்டம் எண், %%v = நிகழ்வுண், %% T = HH: MM: SS, \\n = புதிய வரி"
+
+#, python-format
+#~ msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
+#~ msgstr "படக் கோப்புகளுக்கான பெயர் வார்ப்புருவை வரையறுக்கிறது (JPEG); பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = நிகழ்வு எண், / = துணை அடைவு."
+
+#, python-format
+#~ msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
+#~ msgstr "மூவி கோப்புகளுக்கான பெயர் வார்ப்புருவை வரையறுக்கிறது; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = நிகழ்வு எண், / = துணை அடைவு."
+
+#, python-format
+#~ msgid "URL por esti petita kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
+#~ msgstr "இயக்கம் கண்டறியப்படும்போது முகவரி கோரப்பட வேண்டும்; பின்வரும் சிறப்பு குறுக்குவழிகள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = அவ்வப்போது எண்"
+
+#, python-format
+#~ msgid "Komando por esti lanĉa kiam moviĝo estas detektita; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokomojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = tago, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadro-numero, %%v = okaza numero"
+#~ msgstr "இயக்கம் கண்டறியப்படும்போது தொடங்கப்பட வேண்டும்; பல கட்டளைகளை ஒரு பெருங்குடலால் பிரிக்கலாம்; கட்டளைகளுடன் அரைக்காற்புள்ளிகளைப் பயன்படுத்த வேண்டாம்; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% m = மாதம், %%d = நாள், %% H = மணிநேரம், %% m = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண், %% V = அவ்வப்போது எண்"
+
+#, python-format
+#~ msgid "Komando por esti lanĉa kiam moviĝokazaĵo finiĝas; multnombraj komandoj povas esti apartigitaj per dupunkto; ne uzu punktokompojn per komandoj; la sekvaj specialaj tokensoj estas akceptitaj: %%Y = jaro, %%m = monato, %%d = dato, %%H = horo, %%M = minuto, %%S = sekundo, %%q = kadra nombro."
+#~ msgstr "ஒரு மோசன் நிகழ்வு முடிவடையும் போது தொடங்கப்பட வேண்டும்; பல கட்டளைகளை ஒரு பெருங்குடலால் பிரிக்கலாம்; கட்டளைகளுடன் புள்ளி கலவைகளைப் பயன்படுத்த வேண்டாம்; பின்வரும் சிறப்பு டோக்கன்கள் ஏற்றுக்கொள்ளப்படுகின்றன: %% ஒய் = ஆண்டு, %% M = மாதம், %%d = தேதி, %% H = மணிநேரம், %% M = மணித்துளி, %% S = இரண்டாவது, %% Q = பிரேம் எண்."
