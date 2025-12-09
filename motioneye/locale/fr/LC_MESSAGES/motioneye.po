@@ -7,13 +7,14 @@
 # Zhang Wei <Zhang@users.noreply.hosted.weblate.org>, 2024.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# MichaIng <micha@dietpi.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-09 16:07+0000\n"
 "PO-Revision-Date: 2025-12-09 23:09+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgstr "Les appareils ne sont disponibles que pour les caractères alphanumériq
 #: motioneye/config.py:864
 #, fuzzy, python-format
 msgid "File names are only allowed to contain alphanumerical characters, parenthesis (), forward slash /, dot ., underscore _, hyphen -, space, and a subset of motion conversion specifiers: %C %Y %m %d %H %M %S %q %v"
-msgstr "Les fichiers sont seulement équivalents aux caractères alphanumériques, aux parenthèses (), aux avants/, au point de vue, à l'hyphène-, dans l'espace, et à un sous-ensemble des attributs de mouvement spécifiés : %C %Y %m %d %M %q %v [X] [X]"
+msgstr "Les fichiers sont seulement équivalents aux caractères alphanumériques, aux parenthèses (), aux avants/, au point de vue, à l'hyphène-, dans l'espace, et à un sous-ensemble des attributs de mouvement spécifiés : %C %Y %m %d %H %M %S %q %v"
 
 #: motioneye/config.py:869
 #, fuzzy
@@ -46,7 +47,7 @@ msgstr "Le protocole de courriel n'est qu'un guide des caractères alphanumériq
 #: motioneye/config.py:879
 #, fuzzy
 msgid "URLs are not allowed to contain caret ^, semicolon ;, or apostrophe '"
-msgstr "Les URL ne sont pas connues sous le nom de \"Complier\" , semicolon; ou apostrophe '"
+msgstr "Les URL ne doivent pas contenir de caret ^, de point-virgule ; ou d'apostrophe '"
 
 #: motioneye/server.py:232
 msgid "interrompa signalo ricevita, fermanta …"
