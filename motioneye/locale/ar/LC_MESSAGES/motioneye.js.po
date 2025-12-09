@@ -7,13 +7,14 @@
 # Nasser Bin Laboun <nasser1990com@gmail.com>, 2025.
 # Weblate <noreply-mt-weblate@weblate.org>, 2025.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
+# MichaIng <micha@dietpi.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 16:07+0000\n"
-"PO-Revision-Date: 2025-12-09 15:00+0000\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"PO-Revision-Date: 2025-12-09 23:09+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -89,7 +90,7 @@ msgstr "لا يمكن تحرير القناع بدون صورة كاميرا ص�
 #: motioneye/static/js/main.js:2239
 #, fuzzy
 msgid "Propra"
-msgstr "ملك"
+msgstr "مخصص"
 
 #: motioneye/static/js/main.js:2277
 #, fuzzy
@@ -261,12 +262,12 @@ msgstr "هل حقاً تحذف هذا الملف؟?"
 #: motioneye/static/js/main.js:3244
 #, fuzzy
 msgid "Ĉu vere forigi ĉiujn bildojn de \"%(group)s\"?"
-msgstr "هل تتخلصين حقاً من جميع صور (X33X)؟?"
+msgstr "هل تتخلصين حقاً من جميع صور \"%(group)s\"?"
 
 #: motioneye/static/js/main.js:3247
 #, fuzzy
 msgid "Ĉu vere forigi ĉiujn filmojn de \"%(group)s\"?"
-msgstr "هل تتخلص حقاً من كل أفلام (X33X)؟?"
+msgstr "هل تتخلص حقاً من كل أفلام \"%(group)s\"?"
 
 #: motioneye/static/js/main.js:3252
 #, fuzzy
@@ -497,7 +498,7 @@ msgstr "تشمل صورة التقطت كل منها"
 #: motioneye/static/js/main.js:4211
 #, fuzzy
 msgid "sekundo"
-msgstr "الثانية"
+msgstr "ثاني"
 
 #: motioneye/static/js/main.js:4212
 #, fuzzy
@@ -587,12 +588,12 @@ msgstr "ابعد الجميع"
 #: motioneye/static/js/main.js:4675
 #, fuzzy
 msgid "Bildoj prenitaj de "
-msgstr "الصور الملتقطة"
+msgstr "الصور الملتقطة "
 
 #: motioneye/static/js/main.js:4678
 #, fuzzy
 msgid "Filmoj registritaj de "
-msgstr "الأفلام المسجلة بواسطة"
+msgstr "الأفلام المسجلة بواسطة "
 
 #: motioneye/static/js/main.js:4746
 #, fuzzy
@@ -657,22 +658,22 @@ msgstr "أدخل عددًا صحيحًا"
 #: motioneye/static/js/ui.js:512
 #, fuzzy
 msgid " inter "
-msgstr "بينهما"
+msgstr " بينهما "
 
 #: motioneye/static/js/ui.js:512
 #, fuzzy
 msgid " kaj "
-msgstr "و"
+msgstr " و "
 
 #: motioneye/static/js/ui.js:515
 #, fuzzy
 msgid " pli ol "
-msgstr "أكثر من"
+msgstr " أكثر من "
 
 #: motioneye/static/js/ui.js:520
 #, fuzzy
 msgid " malpli ol "
-msgstr "أقل من"
+msgstr " أقل من "
 
 #: motioneye/static/js/ui.js:573
 msgid "enigu validan tempon en la sekva formato: HH:MM"
