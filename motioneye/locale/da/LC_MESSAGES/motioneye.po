@@ -22,8 +22,9 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: motioneye/config.py:860
+#, fuzzy
 msgid "Device names are only allowed to contain alphanumerical characters, hyphen -, underscore _, plus +, and space"
-msgstr ""
+msgstr "Enheder er kun tilgængelige for alfanumeriske tegn, bindestreg, understregning, plus + og rum"
 
 #: motioneye/config.py:864
 #, fuzzy, python-format
@@ -31,16 +32,19 @@ msgid "File names are only allowed to contain alphanumerical characters, parenth
 msgstr "%M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M %M"
 
 #: motioneye/config.py:869
+#, fuzzy
 msgid "Directory names are only allowed to contain alphanumerical characters, space, parenthesis (), forward slash /, dot ., underscore _, and hyphen -"
-msgstr ""
+msgstr "Oversættelsesnavne svarer kun til alfanumeriske tegn, rumligt, forældrehesis (), fremad/, dot., understreg og bindestreg –"
 
 #: motioneye/config.py:874
+#, fuzzy
 msgid "Email addresses are only allowed to contain alphanumerical characters, underscore _, plus +, dot ., at @, caret ^, tilde ~, angle brackets <>, hyphen -, and may be separated by comma, and space"
-msgstr ""
+msgstr "E-mail-protokollen er kun en guide til alfanumeriske tegn, understregning, plus +, dot., på @, caret^, tilde ~, Engelske nouner < >, hyphen – og kan være en fin ved kommuna og rumligt"
 
 #: motioneye/config.py:879
+#, fuzzy
 msgid "URLs are not allowed to contain caret ^, semicolon ;, or apostrophe '"
-msgstr ""
+msgstr "URL'er er ikke kendt som \"Complier\" , semikolon; eller apostrophe ''"
 
 #: motioneye/server.py:232
 #, fuzzy
@@ -1699,8 +1703,9 @@ msgid "Testo"
 msgstr "Test"
 
 #: motioneye/templates/main.html:1131 motioneye/templates/main.html:1176
+#, fuzzy
 msgid "Alvoki URL"
-msgstr ""
+msgstr "Ring til en webadresse"
 
 #: motioneye/templates/main.html:1133
 #, fuzzy
