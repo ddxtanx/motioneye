@@ -4,20 +4,21 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 # Marko Hinkkanen <hinkma@gmail.com>, 2023.
 # Sami Heino <sami.heino@iki.fi>, 2025.
+# LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-05 22:22+0000\n"
-"PO-Revision-Date: 2025-02-09 00:02+0000\n"
-"Last-Translator: Sami Heino <sami.heino@iki.fi>\n"
+"PO-Revision-Date: 2025-12-09 01:40+0000\n"
+"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: motioneye/config.py:860
@@ -42,8 +43,9 @@ msgid "URLs are not allowed to contain caret ^, semicolon ;, or apostrophe '"
 msgstr ""
 
 #: motioneye/server.py:232
+#, fuzzy
 msgid "interrompa signalo ricevita, fermanta …"
-msgstr ""
+msgstr "häiritsevä signaali, joka sulkeutuu.."
 
 #: motioneye/server.py:276
 msgid "smb-akcioj postulas radikajn privilegiojn"
@@ -82,8 +84,9 @@ msgid "taskoj komenciĝis"
 msgstr "tehtävät käynnistetty"
 
 #: motioneye/server.py:446
+#, fuzzy
 msgid "mjpg klienta rubo-kolektanto komenciĝis"
-msgstr ""
+msgstr "mjpg-jätteenkerääjä aloitti"
 
 #: motioneye/server.py:464
 msgid "servilo komenciĝis"
@@ -1201,8 +1204,9 @@ msgid "Purigi maskon"
 msgstr ""
 
 #: motioneye/templates/main.html:1016
+#, fuzzy
 msgid "Alklaku ĉi tiun butonon por malplenigi la nunan maskon."
-msgstr ""
+msgstr "Klikkaa tätä nappia poistaaksesi nykyisen naamion."
 
 #: motioneye/templates/main.html:1022
 msgid "Montri Kadro-Ŝanĝojn"
