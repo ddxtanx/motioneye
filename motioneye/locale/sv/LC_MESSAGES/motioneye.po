@@ -4,20 +4,21 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 # el97 <erik1337.el@gmail.com>, 2023.
 # Erik <erik1337.el@gmail.com>, 2023.
+# LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-05 22:22+0000\n"
-"PO-Revision-Date: 2023-09-15 13:51+0000\n"
-"Last-Translator: Erik <erik1337.el@gmail.com>\n"
+"PO-Revision-Date: 2025-12-09 01:40+0000\n"
+"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 "Generated-By: Babel 2.11.0\n"
 
 #: motioneye/config.py:860
@@ -78,12 +79,14 @@ msgid "wsswitch komenciĝis"
 msgstr "wsswitch är igång"
 
 #: motioneye/server.py:442
+#, fuzzy
 msgid "taskoj komenciĝis"
-msgstr ""
+msgstr "uppgifter började"
 
 #: motioneye/server.py:446
+#, fuzzy
 msgid "mjpg klienta rubo-kolektanto komenciĝis"
-msgstr ""
+msgstr "mjpgs kundavfallssamlare började"
 
 #: motioneye/server.py:464
 msgid "servilo komenciĝis"
@@ -94,8 +97,9 @@ msgid "servilo haltis"
 msgstr "servern är stoppad"
 
 #: motioneye/server.py:472
+#, fuzzy
 msgid "taskoj haltis"
-msgstr ""
+msgstr "uppgifterna stoppade"
 
 #: motioneye/server.py:480
 msgid "motion haltis"
@@ -1202,8 +1206,9 @@ msgid "Purigi maskon"
 msgstr ""
 
 #: motioneye/templates/main.html:1016
+#, fuzzy
 msgid "Alklaku ĉi tiun butonon por malplenigi la nunan maskon."
-msgstr ""
+msgstr "Klicka på den här knappen för att rensa den nuvarande masken."
 
 #: motioneye/templates/main.html:1022
 msgid "Montri Kadro-Ŝanĝojn"
