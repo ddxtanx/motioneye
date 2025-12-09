@@ -4,13 +4,14 @@
 # el97 <erik1337.el@gmail.com>, 2023.
 # Erik <erik1337.el@gmail.com>, 2023.
 # Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-05 22:22+0000\n"
 "PO-Revision-Date: 2025-12-09 01:40+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -208,12 +209,14 @@ msgid "Certiĝu, ke ĉiuj agordaj opcioj estas validaj!"
 msgstr "Kontrollera att alla konfigurationsalternativ är korrekta!"
 
 #: motioneye/static/js/main.js:3154
+#, fuzzy
 msgid "Sciiga Telegramo fiaskis:"
-msgstr ""
+msgstr "En branding Telegram misslyckades:"
 
 #: motioneye/static/js/main.js:3157
+#, fuzzy
 msgid "Sciiga Telegramo sukcesis!"
-msgstr ""
+msgstr "En branding Telegram lyckades!"
 
 #: motioneye/static/js/main.js:3193
 msgid "Aliro al retdividado fiaskis: "
@@ -228,12 +231,14 @@ msgid "Ĉu vere forigi ĉi tiun dosieron?"
 msgstr "Vill du verkligen ta bort denna fil?"
 
 #: motioneye/static/js/main.js:3244
+#, fuzzy
 msgid "Ĉu vere forigi ĉiujn bildojn de \"%(group)s\"?"
-msgstr ""
+msgstr "Blir du verkligen av med alla bilder av %?"
 
 #: motioneye/static/js/main.js:3247
+#, fuzzy
 msgid "Ĉu vere forigi ĉiujn filmojn de \"%(group)s\"?"
-msgstr ""
+msgstr "Blir du verkligen av med alla filmer av %?"
 
 #: motioneye/static/js/main.js:3252
 msgid "Ĉu vere forigi ĉiujn ne grupigitajn bildojn?"
@@ -457,8 +462,9 @@ msgid "Elektu la intervalon de tempo inter du elektitaj bildoj."
 msgstr "välj intervall för tiden mellan två valda bilder."
 
 #: motioneye/static/js/main.js:4225
+#, fuzzy
 msgid "Filmo framfrekvenco"
-msgstr ""
+msgstr "Filmramfrekvens"
 
 #: motioneye/static/js/main.js:4227
 msgid "Elektu kiom rapide vi volas ke la akselita video estu."
