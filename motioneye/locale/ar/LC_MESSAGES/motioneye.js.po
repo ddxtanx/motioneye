@@ -5,13 +5,14 @@
 #
 # mahmoud nabil <mahmoudnabil2000026@gmail.com>, 2025.
 # Nasser Bin Laboun <nasser1990com@gmail.com>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-05 22:22+0000\n"
-"PO-Revision-Date: 2025-12-09 00:09+0000\n"
-"Last-Translator: Nasser Bin Laboun <nasser1990com@gmail.com>\n"
+"PO-Revision-Date: 2025-12-09 01:40+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
