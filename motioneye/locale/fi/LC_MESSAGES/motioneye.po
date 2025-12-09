@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-09 23:14+0000\n"
-"PO-Revision-Date: 2025-12-09 23:09+0000\n"
+"PO-Revision-Date: 2025-12-09 23:46+0000\n"
 "Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/fi/>\n"
 "Language: fi\n"
@@ -992,9 +992,9 @@ msgid "dosiernomo ŝablono…"
 msgstr "tiedoston nimi…"
 
 #: motioneye/templates/main.html:749
-#, python-format
+#, fuzzy, python-format
 msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr ""
+msgstr "Kuvatiedostojen nimimalli (JPEG); seuraavat erityiset tokenit hyväksytään: %-%Y = vuosi,%-% m = kuukausi,%-%-%H = tunti,%-%M = minuutti,%-%S = toinen,%q = frame numero,%v = tapahtumanumero, / = subdosieri."
 
 #: motioneye/templates/main.html:752
 #, fuzzy
@@ -1153,9 +1153,9 @@ msgid "Filma Dosiernomo"
 msgstr "Elokuvan nimi"
 
 #: motioneye/templates/main.html:818
-#, python-format
+#, fuzzy, python-format
 msgid "Difinas la nomon ŝablonon por por la filmdosieroj; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr ""
+msgstr "Määrittelee elokuvatiedostojen nimimallin; seuraavat erityiset tokenit hyväksytään: %Y = vuosi, %–%m = kuukausi, % %–%H = tunti, %–%M = minuutti, %–%S = toinen, %q = runko, %v = tapahtumanumero, / = subdosierujo."
 
 #: motioneye/templates/main.html:821
 #, fuzzy
