@@ -7,13 +7,14 @@
 # Zhang Wei <Zhang@users.noreply.hosted.weblate.org>, 2024.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# MichaIng <micha@dietpi.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-09 16:07+0000\n"
 "PO-Revision-Date: 2025-12-09 23:07+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgstr "उपकरण केवल अल्फ़ान्यूमेरि�
 #: motioneye/config.py:864
 #, fuzzy, python-format
 msgid "File names are only allowed to contain alphanumerical characters, parenthesis (), forward slash /, dot ., underscore _, hyphen -, space, and a subset of motion conversion specifiers: %C %Y %m %d %H %M %S %q %v"
-msgstr "फ़ाइल केवल अल्फ़ान्यूमेरिकल अक्षरों, पैरेंटहेसिस (), फॉरवर्ड्स /, डॉट, अंडरस्कोर, हाइफेन-, स्थानिक रूप से, और निर्दिष्ट गति विशेषताओं की एक सबसेट के बराबर हैं: %C %Y %m %d %M %M %M %q %v %v"
+msgstr "फ़ाइल केवल अल्फ़ान्यूमेरिकल अक्षरों, पैरेंटहेसिस (), फॉरवर्ड्स /, डॉट, अंडरस्कोर, हाइफेन-, स्थानिक रूप से, और निर्दिष्ट गति विशेषताओं की एक सबसेट के बराबर हैं: %C %Y %m %d %H %M %S %q %v"
 
 #: motioneye/config.py:869
 #, fuzzy
@@ -51,7 +52,7 @@ msgstr "यूआरएल को \"Complier\", सेमीकोलॉन क�
 #: motioneye/server.py:232
 #, fuzzy
 msgid "interrompa signalo ricevita, fermanta …"
-msgstr "एक निष्क्रिय संकेत प्राप्त, समापन .."
+msgstr "एक निष्क्रिय संकेत प्राप्त, समापन …"
 
 #: motioneye/server.py:276
 #, fuzzy
@@ -146,7 +147,7 @@ msgstr "कैमरा निकालें"
 #: motioneye/templates/main.html:108
 #, fuzzy
 msgid "Apliki"
-msgstr "बढ़ाना"
+msgstr "लागू करें"
 
 #: motioneye/templates/main.html:127
 #, fuzzy
@@ -342,7 +343,7 @@ msgstr "पहले संरक्षित आरक्षित फ़ाइ
 #: motioneye/templates/main.html:265
 #, fuzzy
 msgid "aktivigu ĉi tion, se vi volas uzi ĉi tiun kameraon"
-msgstr "अगर आप इस कैमरे का उपयोग करना चाहते हैं तो इसे बनाएं।"
+msgstr "यदि आप इस कैमरा का उपयोग करना चाहते हैं तो इसे सक्षम करें"
 
 #: motioneye/templates/main.html:266
 #, fuzzy
@@ -358,7 +359,7 @@ msgstr "चैंबर का नाम"
 #: motioneye/templates/main.html:272
 #, fuzzy
 msgid "kameraa nomo…"
-msgstr "कैमरा नाम.."
+msgstr "कैमरा नाम…"
 
 #: motioneye/templates/main.html:273
 #, fuzzy
@@ -537,7 +538,7 @@ msgstr "एक्सचेंज नेटवर्क का नाम"
 #: motioneye/templates/main.html:409 motioneye/templates/main.html:516
 #, fuzzy
 msgid "Uzantnomo"
-msgstr "प्रयोक्ता नाम"
+msgstr "उपयोगकर्ता नाम"
 
 #: motioneye/templates/main.html:411
 #, fuzzy
@@ -592,7 +593,7 @@ msgstr "बंद मीडिया फ़ाइलें"
 #: motioneye/templates/main.html:444
 #, fuzzy
 msgid "aktivigu ĉi tiun opcion, se vi volas, ke viaj amaskomunikiloj estu alŝutitaj al ekstera servo"
-msgstr "यदि आप चाहते हैं कि आपके मीडिया को बाहरी सेवा में अपलोड किया जाए तो इस विकल्प को लागू करें।"
+msgstr "यदि आप चाहते हैं कि आपके मीडिया को बाहरी सेवा में अपलोड किया जाए तो इस विकल्प को लागू करें"
 
 #: motioneye/templates/main.html:447
 #, fuzzy
@@ -602,7 +603,7 @@ msgstr "फोटो"
 #: motioneye/templates/main.html:449
 #, fuzzy
 msgid "aktivigu ĉi tiun opcion, se vi volas, ke la bildoj elŝutiĝu al ekstera servo"
-msgstr "यदि आप चाहते हैं कि छवियाँ बाहरी सेवा में डाउनलोड करें।"
+msgstr "यदि आप चाहते हैं कि छवियाँ बाहरी सेवा में डाउनलोड करें"
 
 #: motioneye/templates/main.html:452
 #, fuzzy
@@ -849,7 +850,7 @@ msgstr "क्रम"
 #: motioneye/templates/main.html:594
 #, fuzzy
 msgid "ordono…"
-msgstr "आदेश ..."
+msgstr "आदेश…"
 
 #: motioneye/templates/main.html:595
 #, fuzzy, python-format
@@ -895,7 +896,7 @@ msgstr "फिल्मों और चित्रों पर प्रद�
 #: motioneye/templates/main.html:624 motioneye/templates/main.html:641
 #, fuzzy
 msgid "propra teksto…"
-msgstr "प्रचलित पाठ ..."
+msgstr "प्रचलित पाठ…"
 
 #: motioneye/templates/main.html:625
 #, fuzzy, python-format
@@ -1060,7 +1061,7 @@ msgstr "नाम छवि फ़ाइल"
 #: motioneye/templates/main.html:748 motioneye/templates/main.html:817
 #, fuzzy
 msgid "dosiernomo ŝablono…"
-msgstr "फ़ाइल नाम टेम्पलेट ..."
+msgstr "फ़ाइल नाम टेम्पलेट…"
 
 #: motioneye/templates/main.html:749
 #, fuzzy, python-format
@@ -1182,7 +1183,7 @@ msgstr "नित्य"
 #: motioneye/templates/main.html:787 motioneye/templates/main.html:900
 #, fuzzy
 msgid "Propra"
-msgstr "रिवाज"
+msgstr "अनुकूलित"
 
 #: motioneye/templates/main.html:790
 #, fuzzy
@@ -1538,7 +1539,7 @@ msgstr "ईमेल पते"
 #: motioneye/templates/main.html:1057
 #, fuzzy
 msgid "retpoŝtadresoj…"
-msgstr "ईमेल पता ..."
+msgstr "ईमेल पता…"
 
 #: motioneye/templates/main.html:1058
 #, fuzzy
@@ -1608,7 +1609,7 @@ msgstr "पते से"
 #: motioneye/templates/main.html:1082
 #, fuzzy
 msgid "retpoŝta adreso…"
-msgstr "ईमेल पता ..."
+msgstr "ईमेल पता…"
 
 #: motioneye/templates/main.html:1083
 #, fuzzy
@@ -1748,7 +1749,7 @@ msgstr "आदेश"
 #: motioneye/templates/main.html:1162 motioneye/templates/main.html:1207
 #, fuzzy
 msgid "komando…"
-msgstr "आज्ञा ..."
+msgstr "आज्ञा…"
 
 #: motioneye/templates/main.html:1163
 #, fuzzy, python-format
@@ -1923,7 +1924,7 @@ msgstr "मिनट"
 #: motioneye/utils/dtconv.py:143
 #, fuzzy
 msgid "sekundo"
-msgstr "एक पल"
+msgstr "दूसरा"
 
 #: motioneye/utils/dtconv.py:153
 #, fuzzy
