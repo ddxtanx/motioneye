@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-05 22:22+0000\n"
-"PO-Revision-Date: 2025-12-09 15:01+0000\n"
+"PO-Revision-Date: 2025-12-09 16:07+0000\n"
 "Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/hu/>\n"
 "Language: hu\n"
@@ -702,9 +702,9 @@ msgid "ekz. http://example.com/notify/"
 msgstr ""
 
 #: motioneye/templates/main.html:570
-#, python-format
+#, fuzzy, python-format
 msgid "URL por transdoni kiam moviĝo estas detektita; la sekvaj specialaj ŝparvojoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%f = dosiera vojo"
-msgstr ""
+msgstr "URL-t átadni, amikor mozgást észlelnek; a következő konkrét megtakarítási útvonalakat elfogadják:% -% -% -% -% -% m = hónap,% = nap,% -% -%H = óra,% -% -% -% -%M = perc,%% %%,%q = keretszám,%,% f = fájlút"
 
 #: motioneye/templates/main.html:573 motioneye/templates/main.html:1141
 #: motioneye/templates/main.html:1186
@@ -770,9 +770,9 @@ msgid "propra teksto…"
 msgstr ""
 
 #: motioneye/templates/main.html:625
-#, python-format
+#, fuzzy, python-format
 msgid "Difinas kutimon maldekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
-msgstr ""
+msgstr "Meghatározza a szokásos bal szöveget; a következő konkrét tokeneket elfogadják:% -% -% -% -% -% m = hónap,% = nap,% -%H = óra,% -% -%M = perc,%% -% -% -% -% -% -% q = keretszám,% -% % T = HH:M:SS, \\n = új vonal"
 
 #: motioneye/templates/main.html:628
 msgid "Dekstra Teksto"
@@ -783,9 +783,9 @@ msgid "Fiksas la tekston montritan sur la filmoj kaj bildoj, sur la malsupra dek
 msgstr ""
 
 #: motioneye/templates/main.html:642
-#, python-format
+#, fuzzy, python-format
 msgid "Difinas kutimon dekstran tekston; la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero,%%T = HH:MM:SS, \\n = nova linio"
-msgstr ""
+msgstr "Meghatározza a szokásos megfelelő szöveget; a következő konkrét tokeneket elfogadják:%–%Y = év,%–% m = hónap,% = nap,%H = óra,%–%M = perc,%–%–%–%–%–%–%q = keretszám,%% % % j = HH:M:SS, \\n = új vonal"
 
 #: motioneye/templates/main.html:645
 msgid "Teksta Skalo"
