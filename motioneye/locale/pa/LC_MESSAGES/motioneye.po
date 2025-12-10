@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-09 23:47+0000\n"
-"PO-Revision-Date: 2025-12-09 23:46+0000\n"
+"PO-Revision-Date: 2025-12-10 00:41+0000\n"
 "Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Punjabi <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/pa/>\n"
 "Language: pa\n"
@@ -1065,7 +1065,7 @@ msgstr "ਫਾਈਲ ਨਾਮ ਟੈਂਪਲੇਟ…"
 #: motioneye/templates/main.html:749
 #, fuzzy, python-format
 msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr "ਜੇਪੀਈਜੀ ਫਾਈਲਾਂ ਲਈ ਨਾਮ ਟੈਂਪਲੇਟ ਪਰਿਭਾਸ਼ਤ ਕਰਦਾ ਹੈ; ਹੇਠ ਦਿੱਤੇ ਵਿਸ਼ੇਸ਼ ਟੋਕਨ ਸਵੀਕਾਰੇ ਗਏ ਹਨ:%% Y = ਸਾਲ, %% m = ਮਹੀਨਾ, %% d = ਦਿਨ, %% H = ਘੰਟਾ, %% M = ਮਿੰਟ, %% S = ਸਕਿੰਟ, %% Q = ਫਰੇਮ ਨੰਬਰ, %% v = ਈਵੈਂਟ ਨੰਬਰ, / = ਸਬ ਡਾਇਰੈਕਟਰੀ."
+msgstr "ਇਹ ਚਿੱਤਰ (JPEG) ਫਾਈਲਾਂ ਲਈ ਨਾਮ ਦਾ ਪੈਟਰਨ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ; ਹੇਠ ਲਿਖੇ ਵਿਸ਼ੇਸ਼ ਟੋਕਨ ਸਵੀਕਾਰ ਕੀਤੇ ਜਾਂਦੇ ਹਨ: %%Y = ਸਾਲ, %%m = ਮਹੀਨਾ, %%d = ਦਿਨ, %%H = ਘੰਟਾ, %%M = ਮਿੰਟ, %%S = ਸਕਿੰਟ, %%q = ਫਰੇਮ ਨੰਬਰ, %%v = ਘਟਨਾ ਨੰਬਰ, / = ਉਪ-ਫੋਲਡਰ।"
 
 #: motioneye/templates/main.html:752
 #, fuzzy
