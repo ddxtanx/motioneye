@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-12-09 23:47+0000\n"
-"PO-Revision-Date: 2025-12-09 23:46+0000\n"
+"PO-Revision-Date: 2025-12-10 00:41+0000\n"
 "Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/el/>\n"
 "Language: el\n"
@@ -868,9 +868,9 @@ msgid "dosiernomo ŝablono…"
 msgstr "Πρότυπο Όνομα αρχείου…"
 
 #: motioneye/templates/main.html:749
-#, python-format
+#, fuzzy, python-format
 msgid "Difinas la nomon ŝablonon por bilddosieroj (JPEG); la sekvaj specialaj tokensoj estas akceptitaj:%%Y = jaro,%%m = monato,%%d = tago,%%H = horo,%%M = minuto,%%S = sekundo,%%q = kadro numero,%%v = evento numero, / = subdosierujo."
-msgstr "Ορίζει το πρότυπο ονομασίας για αρχεία εικόνας (JPEG). Τα ακόλουθα ειδικά μάρκες γίνονται αποδεκτά: %% Y = έτος, %% M = Month, %% D = ημέρα, %% H = ώρα, %% M = Minute, %% S = Second, %% Q = αριθμός πλαισίου, %% V = Αριθμός συμβάντος, / = Υποδιάγραμμα."
+msgstr "ορίζει το πρότυπο ονόματος για τα αρχεία εικόνας (JPEG). Γίνονται αποδεκτά τα ακόλουθα ειδικά σύμβολα: %%Y = έτος, %%m = μήνας, %%d = ημέρα, %%H = ώρα, %%M = λεπτό, %%S = δευτερόλεπτο, %%q = αριθμός καρέ, %%v = αριθμός συμβάντος, / = υποφάκελος."
 
 #: motioneye/templates/main.html:752
 msgid "Bildkvalito"
