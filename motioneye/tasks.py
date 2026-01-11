@@ -37,6 +37,11 @@ _POOL_SIZE = 1
 _tasks = []
 _pool = None
 
+def init_pool_process():
+    import signal
+
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
 
 def start():
     global _pool
@@ -44,11 +49,6 @@ def start():
     io_loop = IOLoop.current()
     io_loop.add_timeout(datetime.timedelta(seconds=_INTERVAL), _check_tasks)
 
-    def init_pool_process():
-        import signal
-
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
-        signal.signal(signal.SIGTERM, signal.SIG_IGN)
 
     _load()
     _pool = multiprocessing.Pool(_POOL_SIZE, initializer=init_pool_process)
