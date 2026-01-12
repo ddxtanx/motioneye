@@ -143,7 +143,7 @@ def do_list_media1(pipe, target_dir, exts, prefix, with_stat):
     pipe.close()
 
 def do_zip(pipe, target_dir, exts, group):
-    parent_pipe.close()
+    # parent_pipe.close()
 
     mf = _list_media_files(target_dir, exts, sub_path=group, with_stat=False)
     paths = []
@@ -189,7 +189,7 @@ def do_zip(pipe, target_dir, exts, group):
         pipe.close()
 
 def do_list_media(pipe, target_dir, group):
-    parent_pipe.close()
+    # parent_pipe.close()
 
     mf = _list_media_files(
         target_dir, _PICTURE_EXTS, sub_path=group, with_stat=True
