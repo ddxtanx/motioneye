@@ -103,6 +103,7 @@ _timelapse_data = None
 
 _ffmpeg_binary_cache = None
 
+
 def do_list_media1(pipe, target_dir, exts, prefix, with_stat):
     import mimetypes
 
@@ -142,7 +143,8 @@ def do_list_media1(pipe, target_dir, exts, prefix, with_stat):
 
     pipe.close()
 
-def do_zip(pipe, target_dir, exts, group):
+
+def do_zip(pipe, target_dir, exts, group, working):
     # parent_pipe.close()
 
     mf = _list_media_files(target_dir, exts, sub_path=group, with_stat=False)
@@ -188,12 +190,11 @@ def do_zip(pipe, target_dir, exts, group):
         os.remove(zip_filename)
         pipe.close()
 
+
 def do_list_media(pipe, target_dir, group):
     # parent_pipe.close()
 
-    mf = _list_media_files(
-        target_dir, _PICTURE_EXTS, sub_path=group, with_stat=True
-    )
+    mf = _list_media_files(target_dir, _PICTURE_EXTS, sub_path=group, with_stat=True)
     for p, st in mf:
         timestamp = st.st_mtime
 
@@ -510,7 +511,9 @@ def list_media(
     logging.debug('starting media listing process...')
 
     (parent_pipe, child_pipe) = multiprocessing.Pipe(duplex=False)
-    process = multiprocessing.Process(target=do_list_media1, args=(child_pipe, target_dir, exts, prefix, with_stat))
+    process = multiprocessing.Process(
+        target=do_list_media1, args=(child_pipe, target_dir, exts, prefix, with_stat)
+    )
     process.start()
     child_pipe.close()
 
@@ -598,7 +601,9 @@ def get_zipped_content(
     logging.debug('starting zip process...')
 
     (parent_pipe, child_pipe) = multiprocessing.Pipe(duplex=False)
-    process = multiprocessing.Process(target=do_zip, args=(child_pipe, target_dir, exts, group))
+    process = multiprocessing.Process(
+        target=do_zip, args=(child_pipe, target_dir, exts, group, working)
+    )
     process.start()
     child_pipe.close()
 
@@ -650,7 +655,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group):
     file_format = FFMPEG_EXT_MAPPING.get(movie_codec, movie_codec)
 
     # create a subprocess to retrieve media files
-    
+
     logging.debug('starting media listing process...')
 
     (parent_pipe, child_pipe) = multiprocessing.Pipe(duplex=False)
