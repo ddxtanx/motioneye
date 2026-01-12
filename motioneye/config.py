@@ -1030,13 +1030,13 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
         if data.get('rotate') in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        data['mask_privacy'] = utils.build_editable_mask_file(
-            prev_config['@id'],
-            'privacy',
-            ui['privacy_mask_lines'],
-            capture_width,
-            capture_height,
-        )
+        # data['mask_privacy'] = utils.build_editable_mask_file(
+        #     prev_config['@id'],
+        #     'privacy',
+        #     ui['privacy_mask_lines'],
+        #     capture_width,
+        #     capture_height,
+        # )
 
     data['target_dir'] = input_sanity_check(
         dirnameValidRegExp, ui['root_directory'], 'target_dir', dirnameFailMessage
@@ -1181,13 +1181,13 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
             if data.get('rotate') in [90, 270]:
                 capture_width, capture_height = capture_height, capture_width
 
-            data['mask_file'] = utils.build_editable_mask_file(
-                prev_config['@id'],
-                'motion',
-                ui['motion_mask_lines'],
-                capture_width,
-                capture_height,
-            )
+            # data['mask_file'] = utils.build_editable_mask_file(
+            #     prev_config['@id'],
+            #     'motion',
+            #     ui['motion_mask_lines'],
+            #     capture_width,
+            #     capture_height,
+            # )
 
     # working schedule
     if ui['working_schedule']:
@@ -1710,9 +1710,9 @@ def motion_camera_dict_to_ui(data):
         if int(data.get('rotate')) in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        ui['motion_mask_lines'] = utils.parse_editable_mask_file(
-            data['@id'], 'motion', capture_width, capture_height
-        )
+        # ui['motion_mask_lines'] = utils.parse_editable_mask_file(
+        #     data['@id'], 'motion', capture_width, capture_height
+        # )
 
     elif data['smart_mask_speed']:
         ui['motion_mask'] = True
@@ -1726,9 +1726,9 @@ def motion_camera_dict_to_ui(data):
         if int(data.get('rotate')) in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        ui['privacy_mask_lines'] = utils.parse_editable_mask_file(
-            data['@id'], 'privacy', capture_width, capture_height
-        )
+        # ui['privacy_mask_lines'] = utils.parse_editable_mask_file(
+        #     data['@id'], 'privacy', capture_width, capture_height
+        # )
 
     # working schedule
     working_schedule = data['@working_schedule']
