@@ -1710,9 +1710,9 @@ def motion_camera_dict_to_ui(data):
         if int(data.get('rotate')) in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        # ui['motion_mask_lines'] = utils.parse_editable_mask_file(
-        #     data['@id'], 'motion', capture_width, capture_height
-        # )
+        ui['motion_mask_lines'] = utils.parse_editable_mask_file(
+            data['@id'], 'motion', capture_width, capture_height
+        )
 
     elif data['smart_mask_speed']:
         ui['motion_mask'] = True
@@ -1726,9 +1726,9 @@ def motion_camera_dict_to_ui(data):
         if int(data.get('rotate')) in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        # ui['privacy_mask_lines'] = utils.parse_editable_mask_file(
-        #     data['@id'], 'privacy', capture_width, capture_height
-        # )
+        ui['privacy_mask_lines'] = utils.parse_editable_mask_file(
+            data['@id'], 'privacy', capture_width, capture_height
+        )
 
     # working schedule
     working_schedule = data['@working_schedule']
