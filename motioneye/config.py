@@ -1030,7 +1030,6 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
         if data.get('rotate') in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        del data['mask_privacy']
         # data['mask_privacy'] = utils.build_editable_mask_file(
         #     prev_config['@id'],
         #     'privacy',
@@ -1182,7 +1181,6 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
             if data.get('rotate') in [90, 270]:
                 capture_width, capture_height = capture_height, capture_width
 
-            del data['mask_file']
             # data['mask_file'] = utils.build_editable_mask_file(
             #     prev_config['@id'],
             #     'motion',
@@ -2211,6 +2209,8 @@ def _dict_to_conf(lines, data, list_names=None):
     for name, value in list(remaining.items()):
         if name.startswith('@_'):
             continue  # ignore additional configs
+        if "mask" in name:
+            continue
 
         if name in list_names:
             for v in value:
