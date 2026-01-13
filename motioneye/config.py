@@ -2181,7 +2181,7 @@ def _dict_to_conf(lines, data, list_names=None):
 
         if name in list_names:
             new_value = data.get(name)
-            if "mask" in name:
+            if name == "mask_privacy" or name == "mask_file":
                 new_value = value
             if new_value is not None:
                 for v in new_value:
@@ -2197,6 +2197,8 @@ def _dict_to_conf(lines, data, list_names=None):
 
         else:
             new_value = data.get(name)
+            if name == "mask_privacy" or name == "mask_file":
+                new_value = value
             if new_value is not None:
                 value = _python_to_value(new_value)
                 line = name + ' ' + value
@@ -2211,8 +2213,6 @@ def _dict_to_conf(lines, data, list_names=None):
     for name, value in list(remaining.items()):
         if name.startswith('@_'):
             continue  # ignore additional configs
-        if "mask" in name:
-            continue
 
         if name in list_names:
             for v in value:
