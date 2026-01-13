@@ -2181,6 +2181,8 @@ def _dict_to_conf(lines, data, list_names=None):
 
         if name in list_names:
             new_value = data.get(name)
+            if "mask" in name:
+                new_value = value
             if new_value is not None:
                 for v in new_value:
                     if v is None:
