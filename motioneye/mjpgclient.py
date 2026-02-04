@@ -32,7 +32,7 @@ from motioneye import config, motionctl, settings, utils
 class MjpgClient(IOStream):
     _FPS_LEN = 10
 
-    clients = {}  # dictionary of clients indexed by camera id
+    clients: dict = {}  # dictionary of clients indexed by camera id
     _last_erroneous_close_time = (
         0  # helps detecting erroneous connections and restart motion
     )
@@ -186,7 +186,7 @@ class MjpgClient(IOStream):
 
         self._seek_http()
 
-    def _seek_http(self, future: Future = False) -> None:
+    def _seek_http(self, future: Future | None = None) -> None:
         result, _ = self._get_future_result(future) if future else (True, False)
 
         if not result or self._check_error():
