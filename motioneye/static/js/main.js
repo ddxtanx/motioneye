@@ -603,7 +603,7 @@ function initUI() {
     });
 
     /* time validators */
-    makeTimeValidator($('input[type=text].time'));
+    makeTimeValidator($('input[type=time]'));
 
     /* custom validators */
     makeCustomValidator($('#adminPasswordEntry, #normalPasswordEntry, #streamingPasswordEntry'), function (value) {
@@ -1726,12 +1726,13 @@ function updateConfigUI() {
 
     var weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     weekDays.forEach(function (weekDay) {
-        var check = $('#' + weekDay + 'EnabledSwitch');
-        if (check.get(0).checked) {
-            check.parent().find('.time').show();
+        var check = document.getElementById(weekDay + 'EnabledSwitch');
+        var timeInputs = document.getElementById(weekDay + 'TimeInputs');
+        if (check.checked) {
+            timeInputs.style.removeProperty('display');
         }
         else {
-            check.parent().find('.time').hide();
+            timeInputs.style.display = 'none';
         }
     });
 
