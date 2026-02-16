@@ -1307,7 +1307,7 @@ function enableMaskEdit(cameraId, maskClass, width, height) {
 
     function handleMouseUp() {
         mouseDown = false;
-        $('html').unbind('mouseup', handleMouseUp);
+        $('html').off('mouseup', handleMouseUp);
         matrixToMaskLines();
     }
 
@@ -1446,7 +1446,7 @@ function disableMaskOverlay() {
 
         overlayDiv.removeClass('mask-edit');
         maskDiv.html('');
-        maskDiv.unbind('click');
+        maskDiv.off('click');
     });
 }
 
@@ -4731,7 +4731,7 @@ function runMediaDialog(cameraId, mediaType) {
                 }
             },
             onClose: function () {
-                $(window).unbind('resize', onResize);
+                $(window).off('resize', onResize);
             }
         });
     });
@@ -5513,7 +5513,7 @@ function checkCameraErrors() {
 
     cameraImgs.each(function () {
         if (this.complete === true && this.naturalWidth === 0 && !this.error && this.src) {
-            $(this).error();
+            $(this).trigger('error');
         }
 
         /* fps timeout */
