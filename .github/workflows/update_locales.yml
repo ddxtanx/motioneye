@@ -1,6 +1,7 @@
 name: update_locales
 
-on: pull_request
+# Disable workflow for now, as we let Weblate generate the i18next JSON files directly
+#on: pull_request
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
