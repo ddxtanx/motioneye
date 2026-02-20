@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # தமிழ்நேரம் <anishprabu.t@gmail.com>, 2025.
 # MichaIng <micha@dietpi.com>, 2025.
-#: motioneye/static/js/jquery.min.js:2
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"

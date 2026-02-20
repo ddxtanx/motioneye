@@ -6,7 +6,7 @@
 # Starwhooper <thiemo@schuff.eu>, 2023.
 # piet <piet@users.noreply.hosted.weblate.org>, 2024.
 # Zhang Wei <Zhang@users.noreply.hosted.weblate.org>, 2024, 2025.
-# MichaIng <micha@dietpi.com>, 2025.
+# MichaIng <micha@dietpi.com>, 2025, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2026.
 msgid ""
@@ -14,15 +14,15 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2026-02-15 09:09+0000\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"PO-Revision-Date: 2026-02-20 21:12+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 "Generated-By: Babel 2.6.0\n"
 
 #: motioneye/config.py:861
@@ -320,14 +320,12 @@ msgid "Kamerao Tipo"
 msgstr "Kameratyp"
 
 #: motioneye/templates/main.html:290
-#, fuzzy
 msgid "Admin-only access"
-msgstr "Nur Admin-Zugriff"
+msgstr "Zugriff nur für Admins"
 
 #: motioneye/templates/main.html:292
-#, fuzzy
 msgid "If enabled only the admin user can access this camera"
-msgstr "Wenn nur der bewundernde Benutzer auf diese Kamera zugreifen kann"
+msgstr "Falls aktiviert, kann nur der Administrator auf diese Kamera zugreifen"
 
 #: motioneye/templates/main.html:298
 msgid "Aŭtomata Brilo"
@@ -647,19 +645,16 @@ msgid "la nomo S3-sitelo por la alŝuta servo (kutime bezonata nur dum agordo)"
 msgstr "der Name des S3 Bucket für den Upload-Service (normalerweise nur während der Konfiguration erforderlich)"
 
 #: motioneye/templates/main.html:560
-#, fuzzy
 msgid "Encryption key"
-msgstr "Schlüssel zur Verschlüsselung"
+msgstr "Verschlüsselungscode"
 
 #: motioneye/templates/main.html:561
-#, fuzzy
 msgid "optional base64-encoded SSE-C encryption key"
-msgstr "unterstützte SSE-C Verschlüsselungsschlüssel"
+msgstr "optionaler Base64-kodierter SSE-C-Verschlüsselungscode"
 
 #: motioneye/templates/main.html:562
-#, fuzzy
 msgid "Add an encryption key if you want to use server-side encryption (SSE-C). The key must be a base64-encoded string with a length of 32 bytes. This key will be needed by every client to access the encrypted files. You can generate a key using the following command: openssl rand 32 | base64"
-msgstr "Fügen Sie einen Verschlüsselungsschlüssel hinzu, wenn Sie eine supportseitige Verschlüsselung (SSE-C) verwenden möchten. Der Schlüssel muss ein Base64-Geschwinde mit einem Schritt von 32 Bytes sein. Dieser Schlüssel wird von jedem Kunden benötigt, um auf die verschlüsselten Dateien zugreifen. Mit der Entscheidung können Sie einem Schlüssel vertrauen: ein umfassender Grenzwert 32 | basic64"
+msgstr "Fügen Sie einen Verschlüsselungscode hinzu, wenn Sie die serverseitige Verschlüsselung (SSE-C) verwenden möchten. Der Schlüssel muss eine Base64-kodierte Zeichenfolge mit einer Länge von 32 Byte sein. Dieser Schlüssel wird von jedem Client benötigt, um auf die verschlüsselten Dateien zugreifen zu können. Sie können einen Schlüssel mit dem folgenden Befehl generieren: openssl rand 32 | base64"
 
 #: motioneye/templates/main.html:566
 msgid "Testi la servon"
@@ -833,14 +828,12 @@ msgid "la aŭtentiga metodo uzata de la rivereto (elektu 'Bazic' anstataŭ 'Dige
 msgstr "die vom Stream verwendete Authentifizierungsmethode (wählen Sie \"Basic\" anstelle von \"Digest\", wenn Sie Probleme mit Programmen von Drittanbietern haben); Anmeldeinformationen vom Überwachungs-Benutzer werden verwendet"
 
 #: motioneye/templates/main.html:711
-#, fuzzy
 msgid "username used for video streaming authentication. When Admin-only access is enabled, use credentials different from the Surveillance user."
-msgstr "der Benutzername für die Videostreaming-Authentifizierung. Wenn Admin-only Zugriff aktiviert ist, verwenden Sie verschiedene Anmeldeinformationen vom Surveillance-Benutzer."
+msgstr "Benutzername für die Authentifizierung beim Video-Streaming. Wenn der Zugriff nur für Admins aktiviert ist, verwenden Sie andere Anmeldedaten als die des Überwachungsbenutzers."
 
 #: motioneye/templates/main.html:716
-#, fuzzy
 msgid "password used for video streaming authentication. When Admin-only access is enabled, use credentials different from the Surveillance user."
-msgstr "das Telefon für Videostreaming verwendet. Wenn Admin-only Zugriff aktiviert ist, verwenden Sie verschiedene Anmeldeinformationen vom Surveillance-Benutzer."
+msgstr "Passwort für die Authentifizierung beim Video-Streaming. Wenn der Zugriff nur für Admins aktiviert ist, verwenden Sie andere Anmeldedaten als die des Überwachungsbenutzers."
 
 #: motioneye/templates/main.html:719
 msgid "Movado-Optimigo"

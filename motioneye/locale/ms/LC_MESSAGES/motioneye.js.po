@@ -4,7 +4,6 @@
 # Automatically generated, 2020.
 #
 # MichaIng <micha@dietpi.com>, 2025.
-#: motioneye/static/js/jquery.min.js:2
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"

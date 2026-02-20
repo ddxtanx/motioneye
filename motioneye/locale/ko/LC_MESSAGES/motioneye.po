@@ -5,22 +5,22 @@
 # piet <piet@users.noreply.hosted.weblate.org>, 2024.
 # Zhang Wei <Zhang@users.noreply.hosted.weblate.org>, 2024, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
-# MichaIng <micha@dietpi.com>, 2025.
+# MichaIng <micha@dietpi.com>, 2025, 2026.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2026-02-15 09:10+0000\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"PO-Revision-Date: 2026-02-20 21:12+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 "Generated-By: Babel 2.6.0\n"
 
 #: motioneye/config.py:861
@@ -598,8 +598,9 @@ msgid "Purigi la nubon"
 msgstr "클라우드를 청소합니다"
 
 #: motioneye/templates/main.html:518
+#, fuzzy
 msgid "ebligu ĉi tion forigi amaskomunikilaĵojn dosierojn alŝutitajn al la nubo ankaŭ kiam loka amaskomunikilaro estas forigita konforme al la agordo de persistemo de dosieroj. Nuntempe ĉi tiu opcio nur haveblas por gdrivo."
-msgstr "파일 결정 구성에 따라 로컬 미디어가 삭제 될 때도 클라우드에 업로드 된 미디어 파일을 삭제하도록 활성화하십시오. 현재이 옵션은 GDRIV에서만 사용할 수 있습니다."
+msgstr "파일 결정 구성에 따라 로컬 미디어가 삭제 될 때도 클라우드에 업로드 된 미디어 파일을 삭제하도록 활성화하십시오. 현재이 옵션은 Google Drive에서만 사용할 수 있습니다."
 
 #: motioneye/templates/main.html:523
 msgid "la uzantnomo por la alŝuta servo-konto"
