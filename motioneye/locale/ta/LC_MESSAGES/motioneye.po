@@ -5,14 +5,14 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
 # தமிழ்நேரம் <anishprabu.t@gmail.com>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
-# MichaIng <micha@dietpi.com>, 2025.
+# MichaIng <micha@dietpi.com>, 2025, 2026.
 # தமிழ்நேரம் <tamilneram247@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2025-12-11 21:09+0000\n"
+"PO-Revision-Date: 2026-02-20 21:12+0000\n"
 "Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/ta/>\n"
 "Language: ta\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: motioneye/config.py:861
@@ -82,7 +82,7 @@ msgstr "துப்புரவு தொடங்கியது"
 
 #: motioneye/server.py:440
 msgid "wsswitch komenciĝis"
-msgstr "WSSWITCH தொடங்கியது"
+msgstr "wsswitch தொடங்கியது"
 
 #: motioneye/server.py:443
 msgid "taskoj komenciĝis"
@@ -596,8 +596,9 @@ msgid "Purigi la nubon"
 msgstr "மேகத்தை தூய்மை செய்ய"
 
 #: motioneye/templates/main.html:518
+#, fuzzy
 msgid "ebligu ĉi tion forigi amaskomunikilaĵojn dosierojn alŝutitajn al la nubo ankaŭ kiam loka amaskomunikilaro estas forigita konforme al la agordo de persistemo de dosieroj. Nuntempe ĉi tiu opcio nur haveblas por gdrivo."
-msgstr "கோப்பு தீர்மானத்தின் உள்ளமைவுக்கு ஏற்ப உள்ளக ஊடகங்கள் நீக்கப்படும் போது மேகக்கட்டத்தில் பதிவேற்றப்பட்ட மீடியா கோப்புகளை நீக்க இதை இயக்கவும். தற்போது இந்த விருப்பம் GDRIV க்கு மட்டுமே கிடைக்கிறது."
+msgstr "கோப்பு தீர்மானத்தின் உள்ளமைவுக்கு ஏற்ப உள்ளக ஊடகங்கள் நீக்கப்படும் போது மேகக்கட்டத்தில் பதிவேற்றப்பட்ட மீடியா கோப்புகளை நீக்க இதை இயக்கவும். தற்போது இந்த விருப்பம் Google Drive க்கு மட்டுமே கிடைக்கிறது."
 
 #: motioneye/templates/main.html:523
 msgid "la uzantnomo por la alŝuta servo-konto"
@@ -1393,7 +1394,7 @@ msgstr "எடுத்துக்காட்டு: 938272312"
 
 #: motioneye/templates/main.html:1136
 msgid "Kreu novan babilejon al id_chatbot (@id_chatbot) kaj elektu starti. La babilejo redonos la necesan numeron por ĉi tiu kampo."
-msgstr "ID_CHATBOT (@ID_CHATBOT) க்கு புதிய அரட்டையை உருவாக்கி தொடக்கத்தைத் தேர்ந்தெடுக்கவும். அரட்டை இந்த புலத்திற்கு தேவையான எண்ணைத் தரும்."
+msgstr "id_chatbot (@id_chatbot) க்கு புதிய அரட்டையை உருவாக்கி தொடக்கத்தைத் தேர்ந்தெடுக்கவும். அரட்டை இந்த புலத்திற்கு தேவையான எண்ணைத் தரும்."
 
 #: motioneye/templates/main.html:1139
 msgid "Alkroĉitaj Bildoj Tempo"

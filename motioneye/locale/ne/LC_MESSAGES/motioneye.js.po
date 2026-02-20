@@ -4,7 +4,6 @@
 # sangam paudel <sangampaudel530@gmail.com>, 2025.
 # Weblate <noreply-mt-weblate@weblate.org>, 2025.
 # MichaIng <micha@dietpi.com>, 2025.
-#: motioneye/static/js/jquery.min.js:2
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"

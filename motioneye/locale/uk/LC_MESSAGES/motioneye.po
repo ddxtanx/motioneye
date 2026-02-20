@@ -10,22 +10,22 @@
 # Максим Горпиніч <gorpinicmaksim5@gmail.com>, 2025.
 # Максим Горпиніч <gorpinicmaksim0@gmail.com>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
-# MichaIng <micha@dietpi.com>, 2025.
+# MichaIng <micha@dietpi.com>, 2025, 2026.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2026-02-15 09:10+0000\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"PO-Revision-Date: 2026-02-20 21:12+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/motioneye-project/motioneye-python-texts/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 "Generated-By: Babel 2.6.0\n"
 
 #: motioneye/config.py:861
@@ -598,8 +598,9 @@ msgid "Purigi la nubon"
 msgstr "Для очищення хмари"
 
 #: motioneye/templates/main.html:518
+#, fuzzy
 msgid "ebligu ĉi tion forigi amaskomunikilaĵojn dosierojn alŝutitajn al la nubo ankaŭ kiam loka amaskomunikilaro estas forigita konforme al la agordo de persistemo de dosieroj. Nuntempe ĉi tiu opcio nur haveblas por gdrivo."
-msgstr "Увімкніть це видаляти медіа -файли, завантажені в хмару, також при видаленні локальних медіа відповідно до конфігурації визначення файлу. В даний час цей варіант доступний лише для GDRIV."
+msgstr "Увімкніть це видаляти медіа -файли, завантажені в хмару, також при видаленні локальних медіа відповідно до конфігурації визначення файлу. В даний час цей варіант доступний лише для Google Drive."
 
 #: motioneye/templates/main.html:523
 msgid "la uzantnomo por la alŝuta servo-konto"
@@ -1394,7 +1395,7 @@ msgstr "Приклад: 938272312"
 
 #: motioneye/templates/main.html:1136
 msgid "Kreu novan babilejon al id_chatbot (@id_chatbot) kaj elektu starti. La babilejo redonos la necesan numeron por ĉi tiu kampo."
-msgstr "Створіть новий чат до ID_CHATBOT (@ID_CHATBOT) та виберіть Start. Чат поверне необхідний номер для цього поля."
+msgstr "Створіть новий чат до id_chatbot (@id_chatbot) та виберіть Start. Чат поверне необхідний номер для цього поля."
 
 #: motioneye/templates/main.html:1139
 msgid "Alkroĉitaj Bildoj Tempo"

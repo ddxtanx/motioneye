@@ -3,14 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2022.
 #
-# MichaIng <micha@dietpi.com>, 2025.
-#: motioneye/static/js/jquery.min.js:2
+# MichaIng <micha@dietpi.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2025-12-10 03:04+0000\n"
+"PO-Revision-Date: 2026-02-20 20:32+0000\n"
 "Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/nb_NO/>\n"
 "Language: nb_NO\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: motioneye/static/js/main.js:611
 msgid "specialaj signoj ne rajtas en pasvorto"
@@ -487,7 +486,7 @@ msgstr "Lager Timelapse Video ..."
 
 #: motioneye/static/js/main.js:4544
 msgid "Zipitaj"
-msgstr "Kompremert (ZIP)"
+msgstr "Zippet"
 
 #: motioneye/static/js/main.js:4553
 msgid "Akselita video"

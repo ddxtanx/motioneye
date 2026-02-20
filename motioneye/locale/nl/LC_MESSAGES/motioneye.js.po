@@ -2,23 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Marijn <168113859+Marijn0@users.noreply.github.com>, 2025, 2026.
-# MichaIng <micha@dietpi.com>, 2025.
+# MichaIng <micha@dietpi.com>, 2025, 2026.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2026.
-#: motioneye/static/js/jquery.min.js:2
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2026-02-15 22:09+0000\n"
-"Last-Translator: Marijn <168113859+Marijn0@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-02-20 20:32+0000\n"
+"Last-Translator: MichaIng <micha@dietpi.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: motioneye/static/js/main.js:611
 msgid "specialaj signoj ne rajtas en pasvorto"
@@ -26,11 +25,11 @@ msgstr "het wachtwoord mag geen speciale tekens bevatten"
 
 #: motioneye/static/js/main.js:618
 msgid "use of colon (:) is not allowed in video streaming username"
-msgstr "Gebruik van een dubbele punt (:) is niet toegestaan in de gebruikersnaam."
+msgstr "Gebruik van een dubbele punt (:) is niet toegestaan in de gebruikersnaam"
 
 #: motioneye/static/js/main.js:629
 msgid "video streaming authentication mode must be Basic or Digest when admin-only access is enabled"
-msgstr "De Authenticatie-methode voor videostreaming moet Basic of Digest zijn wanneer alleen-beheerderstoegang is ingeschakeld."
+msgstr "De Authenticatie-methode voor videostreaming moet Basic of Digest zijn wanneer alleen-beheerderstoegang is ingeschakeld"
 
 #: motioneye/static/js/main.js:636 motioneye/static/js/main.js:647
 #: motioneye/static/js/main.js:706 motioneye/static/js/ui.js:397

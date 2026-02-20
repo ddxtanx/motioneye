@@ -6,7 +6,6 @@
 # albanobattistella <albano_battistella@hotmail.com>, 2025.
 # MichaIng <micha@dietpi.com>, 2025.
 # LibreTranslate <noreply-mt-libretranslate@weblate.org>, 2026.
-#: motioneye/static/js/jquery.min.js:2
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
