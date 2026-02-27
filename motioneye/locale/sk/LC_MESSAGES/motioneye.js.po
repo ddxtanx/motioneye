@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2026-02-20 20:32+0000\n"
-"Last-Translator: MichaIng <micha@dietpi.com>\n"
+"PO-Revision-Date: 2026-02-21 11:10+0000\n"
+"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -541,8 +541,9 @@ msgid "Vi ankoraŭ ne agordis iun kameraon. Alklaku ĉi tie por aldoni unu ..."
 msgstr "Ešte ste nenastavili žiadne kamery. Kliknite sem pre pridanie prvej..."
 
 #: motioneye/static/js/ui.js:361
+#, fuzzy
 msgid "enter a valid value"
-msgstr ""
+msgstr "pochovať platnú hodnotu"
 
 #: motioneye/static/js/ui.js:420
 msgid "enigu nombron"

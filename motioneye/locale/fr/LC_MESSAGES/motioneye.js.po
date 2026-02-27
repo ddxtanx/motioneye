@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-17 02:12+0000\n"
-"PO-Revision-Date: 2026-02-20 20:32+0000\n"
-"Last-Translator: MichaIng <micha@dietpi.com>\n"
+"PO-Revision-Date: 2026-02-21 11:10+0000\n"
+"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/motioneye-project/motioneye-javascript/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -539,8 +539,9 @@ msgid "Vi ankoraŭ ne agordis iun kameraon. Alklaku ĉi tie por aldoni unu ..."
 msgstr "Vous n'avez pas encore configuré de caméra. Cliquez ici pour en ajouter une ..."
 
 #: motioneye/static/js/ui.js:361
+#, fuzzy
 msgid "enter a valid value"
-msgstr ""
+msgstr "enterrer une valeur valide"
 
 #: motioneye/static/js/ui.js:420
 msgid "enigu nombron"
