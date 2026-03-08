@@ -365,6 +365,7 @@ def set_main(main_config):
 
     try:
         f = open(config_file_path, 'w')
+        os.chmod(config_file_path, 0o600)
 
     except Exception as e:
         logging.error(
@@ -608,6 +609,7 @@ def set_camera(camera_id, camera_config):
 
     try:
         f = open(camera_config_path, 'w')
+        os.chmod(camera_config_path, 0o600)
 
     except Exception as e:
         logging.error(
