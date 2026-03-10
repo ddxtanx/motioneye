@@ -23,27 +23,27 @@ msgstr ""
 "X-Generator: Weblate 5.16-dev\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: motioneye/config.py:879
+#: motioneye/config.py:905
 #, fuzzy
 msgid "Device names are only allowed to contain alphanumerical characters, hyphen -, underscore _, plus +, and space"
 msgstr "只向甲型数字特性、hy、强调、+和空间提供装置"
 
-#: motioneye/config.py:883
+#: motioneye/config.py:909
 #, fuzzy
 msgid "File names are only allowed to contain alphanumerical characters, parenthesis (), forward slash /, dot ., underscore _, hyphen -, space, and a subset of motion conversion specifiers: %C %Y %m %d %H %M %S %q %v"
 msgstr "文件名仅允许包含字母数字字符、圆括号 ()、正斜杠 /、点 .、下划线 _、连字符 -、空格，以及运动转换指定符的子集：%C %Y %m %d %H %M %S %q %v"
 
-#: motioneye/config.py:888
+#: motioneye/config.py:914
 #, fuzzy
 msgid "Directory names are only allowed to contain alphanumerical characters, space, parenthesis (), forward slash /, dot ., underscore _, and hyphen -"
 msgstr "目录名称仅允许包含字母数字字符、空格、圆括号 ()、正斜杠 /、点 .、下划线 _ 以及连字符 -"
 
-#: motioneye/config.py:893
+#: motioneye/config.py:919
 #, fuzzy
 msgid "Email addresses are only allowed to contain alphanumerical characters, underscore _, plus +, dot ., at @, caret ^, tilde ~, angle brackets <>, hyphen -, and may be separated by comma, and space"
 msgstr "电子邮件程序只是字母数字特性的指南,强调,+,t., at @, caret^, tilde ~, 英语区系<>,hy子-,可按 com子和空间分类"
 
-#: motioneye/config.py:898
+#: motioneye/config.py:924
 #, fuzzy
 msgid "URLs are not allowed to contain caret ^, semicolon ;, or apostrophe '"
 msgstr "URLs不称为“Complier”、半colon;或 页: 1"
