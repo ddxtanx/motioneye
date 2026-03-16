@@ -27,18 +27,18 @@ from tornado.ioloop import IOLoop
 from motioneye import settings
 
 _INTERVAL = 2
-_STATE_FILE_NAME = 'tasks.pickle'
+_STATE_FILE_NAME = "tasks.pickle"
 _MAX_TASKS = 100
 
 # we must be sure there's only one extra process that handles all tasks
 # TODO replace the pool with one simple thread
 _POOL_SIZE = 1
 
-_tasks = []
+_tasks: list[tuple] = []
 _pool = None
 
 
-def init_pool_process():
+def _init_pool_process():
     import signal
 
     signal.signal(signal.SIGINT, signal.SIG_IGN)
@@ -52,7 +52,7 @@ def start():
     io_loop.add_timeout(datetime.timedelta(seconds=_INTERVAL), _check_tasks)
 
     _load()
-    _pool = multiprocessing.Pool(_POOL_SIZE, initializer=init_pool_process)
+    _pool = multiprocessing.Pool(_POOL_SIZE, initializer=_init_pool_process)
 
 
 def stop():
@@ -64,7 +64,7 @@ def stop():
 def add(when, func, tag=None, callback=None, **params):
     if len(_tasks) >= _MAX_TASKS:
         return logging.error(
-            'the maximum number of tasks (%d) has been reached' % _MAX_TASKS
+            "the maximum number of tasks (%d) has been reached" % _MAX_TASKS
         )
 
     now = time.time()
@@ -95,7 +95,7 @@ def _check_tasks():
     now = time.time()
     changed = False
     while _tasks and _tasks[0][0] <= now:
-        (when, func, tag, callback, params) = _tasks.pop(0)  # @UnusedVariable
+        when, func, tag, callback, params = _tasks.pop(0)  # @UnusedVariable
 
         logging.debug('executing task "%s"' % tag or func.__name__)
         _pool.apply_async(
@@ -119,7 +119,7 @@ def _load():
         logging.debug('loading tasks from "%s"...' % file_path)
 
         try:
-            f = open(file_path, 'rb')
+            f = open(file_path, "rb")
 
         except Exception as e:
             logging.error(f'could not open tasks file "{file_path}": {e}')
@@ -142,7 +142,7 @@ def _save():
     logging.debug('saving tasks to "%s"...' % file_path)
 
     try:
-        f = open(file_path, 'wb')
+        f = open(file_path, "wb")
 
     except Exception as e:
         logging.error(f'could not open tasks file "{file_path}": {e}')
