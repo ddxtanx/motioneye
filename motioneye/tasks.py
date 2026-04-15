@@ -27,7 +27,7 @@ from tornado.ioloop import IOLoop
 from motioneye import settings
 
 _INTERVAL = 2
-_STATE_FILE_NAME = 'tasks.pickle'
+_STATE_FILE_NAME = "tasks.pickle"
 _MAX_TASKS = 100
 
 # we must be sure there's only one extra process that handles all tasks
@@ -64,7 +64,7 @@ def stop():
 def add(when, func, tag=None, callback=None, **params):
     if len(_tasks) >= _MAX_TASKS:
         return logging.error(
-            'the maximum number of tasks (%d) has been reached' % _MAX_TASKS
+            "the maximum number of tasks (%d) has been reached" % _MAX_TASKS
         )
 
     now = time.time()
@@ -119,7 +119,7 @@ def _load():
         logging.debug('loading tasks from "%s"...' % file_path)
 
         try:
-            f = open(file_path, 'rb')
+            f = open(file_path, "rb")
 
         except Exception as e:
             logging.error(f'could not open tasks file "{file_path}": {e}')
@@ -142,7 +142,7 @@ def _save():
     logging.debug('saving tasks to "%s"...' % file_path)
 
     try:
-        f = open(file_path, 'wb')
+        f = open(file_path, "wb")
 
     except Exception as e:
         logging.error(f'could not open tasks file "{file_path}": {e}')

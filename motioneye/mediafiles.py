@@ -38,61 +38,61 @@ from tornado.ioloop import IOLoop
 from motioneye import config, settings, uploadservices, utils
 from motioneye.utils.dtconv import pretty_date_time
 
-_PICTURE_EXTS = ['.jpg']
-_MOVIE_EXTS = ['.avi', '.mp4', '.mov', '.swf', '.flv', '.mkv']
+_PICTURE_EXTS = [".jpg"]
+_MOVIE_EXTS = [".avi", ".mp4", ".mov", ".swf", ".flv", ".mkv"]
 
 FFMPEG_CODEC_MAPPING = {
-    'mpeg4': 'mpeg4',
-    'msmpeg4': 'msmpeg4v2',
-    'swf': 'flv1',
-    'flv': 'flv1',
-    'mov': 'mpeg4',
-    'mp4': 'h264',
-    'mkv': 'h264',
-    'mp4:h264_omx': 'h264_omx',
-    'mkv:h264_omx': 'h264_omx',
-    'mp4:h264_v4l2m2m': 'h264_v4l2m2m',
-    'mkv:h264_v4l2m2m': 'h264_v4l2m2m',
-    'hevc': 'h265',
+    "mpeg4": "mpeg4",
+    "msmpeg4": "msmpeg4v2",
+    "swf": "flv1",
+    "flv": "flv1",
+    "mov": "mpeg4",
+    "mp4": "h264",
+    "mkv": "h264",
+    "mp4:h264_omx": "h264_omx",
+    "mkv:h264_omx": "h264_omx",
+    "mp4:h264_v4l2m2m": "h264_v4l2m2m",
+    "mkv:h264_v4l2m2m": "h264_v4l2m2m",
+    "hevc": "h265",
 }
 
 FFMPEG_FORMAT_MAPPING = {
-    'mpeg4': 'avi',
-    'msmpeg4': 'avi',
-    'swf': 'swf',
-    'flv': 'flv',
-    'mov': 'mov',
-    'mp4': 'mp4',
-    'mkv': 'matroska',
-    'mp4:h264_omx': 'mp4',
-    'mkv:h264_omx': 'matroska',
-    'mp4:h264_v4l2m2m': 'mp4',
-    'mkv:h264_v4l2m2m': 'matroska',
-    'hevc': 'mp4',
+    "mpeg4": "avi",
+    "msmpeg4": "avi",
+    "swf": "swf",
+    "flv": "flv",
+    "mov": "mov",
+    "mp4": "mp4",
+    "mkv": "matroska",
+    "mp4:h264_omx": "mp4",
+    "mkv:h264_omx": "matroska",
+    "mp4:h264_v4l2m2m": "mp4",
+    "mkv:h264_v4l2m2m": "matroska",
+    "hevc": "mp4",
 }
 
 FFMPEG_EXT_MAPPING = {
-    'mpeg4': 'avi',
-    'msmpeg4': 'avi',
-    'swf': 'swf',
-    'flv': 'flv',
-    'mov': 'mov',
-    'mp4': 'mp4',
-    'mkv': 'mkv',
-    'mp4:h264_omx': 'mp4',
-    'mkv:h264_omx': 'mkv',
-    'mp4:h264_v4l2m2m': 'mp4',
-    'mkv:h264_v4l2m2m': 'mkv',
-    'hevc': 'mp4',
+    "mpeg4": "avi",
+    "msmpeg4": "avi",
+    "swf": "swf",
+    "flv": "flv",
+    "mov": "mov",
+    "mp4": "mp4",
+    "mkv": "mkv",
+    "mp4:h264_omx": "mp4",
+    "mkv:h264_omx": "mkv",
+    "mp4:h264_v4l2m2m": "mp4",
+    "mkv:h264_v4l2m2m": "mkv",
+    "hevc": "mp4",
 }
 
 MOVIE_EXT_TYPE_MAPPING = {
-    'avi': 'video/x-msvideo',
-    'mp4': 'video/mp4',
-    'mov': 'video/quicktime',
-    'swf': 'application/x-shockwave-flash',
-    'flv': 'video/x-flv',
-    'mkv': 'video/x-matroska',
+    "avi": "video/x-msvideo",
+    "mp4": "video/mp4",
+    "mov": "video/quicktime",
+    "swf": "application/x-shockwave-flash",
+    "flv": "video/x-flv",
+    "mkv": "video/x-matroska",
 }
 
 # a cache of prepared files (whose preparing time is significant)
@@ -104,6 +104,105 @@ _timelapse_data = None
 _ffmpeg_binary_cache = None
 
 
+def do_list_media1(pipe, target_dir, exts, prefix, with_stat):
+    import mimetypes
+
+    # parent_pipe.close()
+
+    mf = _list_media_files(target_dir, exts, sub_path=prefix, with_stat=with_stat)
+    for p, st in mf:
+        path = p[len(target_dir) :]
+        if not path.startswith("/"):
+            path = "/" + path
+
+        if with_stat and st is not None:
+            timestamp = st.st_mtime
+            size = st.st_size
+
+            pipe.send(
+                {
+                    "path": path,
+                    "mimeType": (
+                        mimetypes.guess_type(path)[0]
+                        if mimetypes.guess_type(path)[0] is not None
+                        else "video/mpeg"
+                    ),
+                    "momentStr": pretty_date_time(
+                        datetime.datetime.fromtimestamp(timestamp)
+                    ),
+                    "momentStrShort": pretty_date_time(
+                        datetime.datetime.fromtimestamp(timestamp), short=True
+                    ),
+                    "sizeStr": utils.pretty_size(size),
+                    "timestamp": timestamp,
+                }
+            )
+        else:
+            # When stat is not available, only send the path
+            pipe.send({"path": path})
+
+    pipe.close()
+
+
+def do_zip(pipe, target_dir, exts, group, working):
+    # parent_pipe.close()
+
+    mf = _list_media_files(target_dir, exts, sub_path=group, with_stat=False)
+    paths = []
+    for p, st in mf:  # st will be None when with_stat=False
+        path = p[len(target_dir) :]
+        if path.startswith("/"):
+            path = path[1:]
+
+        paths.append(path)
+
+    zip_filename = os.path.join(settings.MEDIA_PATH, f".zip-{int(time())}")
+    logging.debug(f'adding {len(paths)} files to zip file "{zip_filename}"')
+
+    try:
+        with ZipFile(zip_filename, mode="w") as f:
+            for path in paths:
+                full_path = os.path.join(target_dir, path)
+                f.write(full_path, path)
+
+    except Exception as e:
+        logging.error(f'failed to create zip file "{zip_filename}": {e}')
+
+        working.value = False
+        pipe.close()
+        return
+
+    logging.debug(f'reading zip file "{zip_filename}" into memory')
+
+    try:
+        with open(zip_filename, mode="rb") as f:
+            data = f.read()
+
+        working.value = False
+        pipe.send(data)
+        logging.debug("zip data ready")
+
+    except Exception as e:
+        logging.error(f'failed to read zip file "{zip_filename}": {e}')
+        working.value = False
+
+    finally:
+        os.remove(zip_filename)
+        pipe.close()
+
+
+def do_list_media(pipe, target_dir, group):
+    # parent_pipe.close()
+
+    mf = _list_media_files(target_dir, _PICTURE_EXTS, sub_path=group, with_stat=True)
+    for p, st in mf:
+        timestamp = st.st_mtime
+
+        pipe.send({"path": p, "timestamp": timestamp})
+
+    pipe.close()
+
+
 def _list_media_files(
     base_path: str,
     exts: typing.List[str],
@@ -112,8 +211,8 @@ def _list_media_files(
 ) -> typing.List[tuple]:
     # Determine scan path based on sub_path parameter
     if sub_path is not None:
-        if sub_path == 'ungrouped':
-            sub_path = ''
+        if sub_path == "ungrouped":
+            sub_path = ""
 
         scan_path = os.path.join(base_path, sub_path)
         if not os.path.exists(scan_path):
@@ -124,7 +223,7 @@ def _list_media_files(
     media_files = []
     for entry in os.scandir(scan_path):
         # ignore hidden files/dirs and other unwanted files
-        if entry.name.startswith('.') or entry.name == 'lastsnap.jpg':
+        if entry.name.startswith(".") or entry.name == "lastsnap.jpg":
             continue
 
         # check if it's a file first (most common case)
@@ -140,7 +239,7 @@ def _list_media_files(
                 try:
                     st = entry.stat(follow_symlinks=False)
                 except Exception as e:
-                    logging.error(f'stat failed: {e}')
+                    logging.error(f"stat failed: {e}")
                     continue
 
             media_files.append((entry.path, st))
@@ -162,7 +261,7 @@ def _remove_older_files(
     for full_path, st in _list_media_files(directory, exts, with_stat=True):
         file_moment = datetime.datetime.fromtimestamp(st.st_mtime)
         if file_moment < moment:
-            logging.debug(f'removing file {full_path}...')
+            logging.debug(f"removing file {full_path}...")
 
             # remove the file itself
             try:
@@ -173,7 +272,7 @@ def _remove_older_files(
                     pass  # the file might have been removed in the meantime
 
                 else:
-                    logging.error(f'failed to remove {full_path}: {e}')
+                    logging.error(f"failed to remove {full_path}: {e}")
 
             # remove the parent directories if empty or contain only thumb files
             dir_path = os.path.dirname(full_path)
@@ -181,7 +280,7 @@ def _remove_older_files(
                 continue
 
             listing = os.listdir(dir_path)
-            thumbs = [l for l in listing if l.endswith('.thumb')]
+            thumbs = [l for l in listing if l.endswith(".thumb")]
 
             if len(listing) == len(thumbs):  # only thumbs
                 for p in thumbs:
@@ -189,18 +288,18 @@ def _remove_older_files(
                         os.remove(os.path.join(dir_path, p))
 
                     except Exception as e:
-                        logging.error(f'failed to remove {p}: {e}')
+                        logging.error(f"failed to remove {p}: {e}")
 
             if not listing or len(listing) == len(thumbs):
                 # this will possibly cause following paths that are in the media files for loop
                 # to be removed in advance; the os.remove call will raise ENOENT which is silently ignored
-                logging.debug(f'removing empty directory {dir_path}...')
+                logging.debug(f"removing empty directory {dir_path}...")
                 try:
                     os.removedirs(dir_path)
                     removed_folder_count += 1
 
                 except Exception as e:
-                    logging.error(f'failed to remove {dir_path}: {e}')
+                    logging.error(f"failed to remove {dir_path}: {e}")
 
     if clean_cloud_info and removed_folder_count > 0:
         uploadservices.clean_cloud(directory, {}, clean_cloud_info)
@@ -212,8 +311,8 @@ def _do_list_media(pipe, target_dir, exts, sub_path, with_stat):
     mf = _list_media_files(target_dir, exts, sub_path, with_stat)
     for p, st in mf:
         path = p[len(target_dir) :]
-        if not path.startswith('/'):
-            path = '/' + path
+        if not path.startswith("/"):
+            path = "/" + path
 
         if with_stat and st is not None:
             timestamp = st.st_mtime
@@ -221,25 +320,25 @@ def _do_list_media(pipe, target_dir, exts, sub_path, with_stat):
 
             pipe.send(
                 {
-                    'path': path,
-                    'mimeType': (
+                    "path": path,
+                    "mimeType": (
                         guess_type(path)[0]
                         if guess_type(path)[0] is not None
-                        else 'video/mpeg'
+                        else "video/mpeg"
                     ),
-                    'momentStr': pretty_date_time(
+                    "momentStr": pretty_date_time(
                         datetime.datetime.fromtimestamp(timestamp)
                     ),
-                    'momentStrShort': pretty_date_time(
+                    "momentStrShort": pretty_date_time(
                         datetime.datetime.fromtimestamp(timestamp), short=True
                     ),
-                    'sizeStr': utils.pretty_size(size),
-                    'timestamp': timestamp,
+                    "sizeStr": utils.pretty_size(size),
+                    "timestamp": timestamp,
                 }
             )
         else:
             # When stat is not available, only send the path
-            pipe.send({'path': path})
+            pipe.send({"path": path})
 
     pipe.close()
 
@@ -249,16 +348,16 @@ def _do_zip(pipe, target_dir, exts, sub_path, working):
     paths = []
     for p, st in mf:  # st will be None when with_stat=False
         path = p[len(target_dir) :]
-        if path.startswith('/'):
+        if path.startswith("/"):
             path = path[1:]
 
         paths.append(path)
 
-    zip_filename = os.path.join(settings.MEDIA_PATH, f'.zip-{int(time())}')
+    zip_filename = os.path.join(settings.MEDIA_PATH, f".zip-{int(time())}")
     logging.debug(f'adding {len(paths)} files to zip file "{zip_filename}"')
 
     try:
-        with ZipFile(zip_filename, mode='w') as f:
+        with ZipFile(zip_filename, mode="w") as f:
             for path in paths:
                 full_path = os.path.join(target_dir, path)
                 f.write(full_path, path)
@@ -273,12 +372,12 @@ def _do_zip(pipe, target_dir, exts, sub_path, working):
     logging.debug(f'reading zip file "{zip_filename}" into memory')
 
     try:
-        with open(zip_filename, mode='rb') as f:
+        with open(zip_filename, mode="rb") as f:
             data = f.read()
 
         working.value = False
         pipe.send(data)
-        logging.debug('zip data ready')
+        logging.debug("zip data ready")
 
     except Exception as e:
         logging.error(f'failed to read zip file "{zip_filename}": {e}')
@@ -294,7 +393,7 @@ def _do_list_pictures(pipe, target_dir, sub_path):
     for p, st in mf:
         timestamp = st.st_mtime
 
-        pipe.send({'path': p, 'timestamp': timestamp})
+        pipe.send({"path": p, "timestamp": timestamp})
 
     pipe.close()
 
@@ -306,36 +405,36 @@ def find_ffmpeg() -> tuple:
 
     # binary
     try:
-        binary = utils.call_subprocess(['which', 'ffmpeg'])
+        binary = utils.call_subprocess(["which", "ffmpeg"])
 
     except subprocess.CalledProcessError:  # not found
         return None, None, None
 
     # version
     try:
-        output = utils.call_subprocess([quote(binary), '-version'])
+        output = utils.call_subprocess([quote(binary), "-version"])
 
     except subprocess.CalledProcessError as e:
-        logging.error(f'ffmpeg: could not find version: {e}')
+        logging.error(f"ffmpeg: could not find version: {e}")
         return None, None, None
 
-    result = re.findall('ffmpeg version (.+?) ', output, re.IGNORECASE)
-    version = result and result[0] or ''
+    result = re.findall("ffmpeg version (.+?) ", output, re.IGNORECASE)
+    version = result and result[0] or ""
 
     # codecs
     try:
-        output = utils.call_subprocess(binary + ' -codecs -hide_banner', shell=True)
+        output = utils.call_subprocess(binary + " -codecs -hide_banner", shell=True)
 
     except subprocess.CalledProcessError as e:
-        logging.error(f'ffmpeg: could not list supported codecs: {e}')
+        logging.error(f"ffmpeg: could not list supported codecs: {e}")
         return None, None, None
 
-    lines = output.split('\n')
-    lines = [l for l in lines if re.match('^ [DEVILSA.]{6} [^=].*', l)]
+    lines = output.split("\n")
+    lines = [l for l in lines if re.match("^ [DEVILSA.]{6} [^=].*", l)]
 
     codecs = {}
     for line in lines:
-        m = re.match(r'^ [DEVILSA.]{6} ([\w+_]+)', line)
+        m = re.match(r"^ [DEVILSA.]{6} ([\w+_]+)", line)
         if not m:
             continue
 
@@ -344,15 +443,15 @@ def find_ffmpeg() -> tuple:
         decoders = set()
         encoders = set()
 
-        m = re.search(r'decoders: ([\w\s_]+)+', line)
+        m = re.search(r"decoders: ([\w\s_]+)+", line)
         if m:
             decoders = set(m.group(1).split())
 
-        m = re.search(r'encoders: ([\w\s_]+)+', line)
+        m = re.search(r"encoders: ([\w\s_]+)+", line)
         if m:
             encoders = set(m.group(1).split())
 
-        codecs[codec] = {'encoders': encoders, 'decoders': decoders}
+        codecs[codec] = {"encoders": encoders, "decoders": decoders}
 
     logging.debug(f'found ffmpeg executable "{binary}" version "{version}"')
 
@@ -362,43 +461,43 @@ def find_ffmpeg() -> tuple:
 
 
 def cleanup_media(media_type: str) -> None:
-    logging.debug(f'cleaning up {media_type}s...')
+    logging.debug(f"cleaning up {media_type}s...")
 
-    if media_type == 'picture':
+    if media_type == "picture":
         exts = _PICTURE_EXTS
 
     else:  # media_type == 'movie'
-        exts = _MOVIE_EXTS + ['.thumb']
+        exts = _MOVIE_EXTS + [".thumb"]
 
     for camera_id in config.get_camera_ids():
         camera_config = config.get_camera(camera_id)
         if not utils.is_local_motion_camera(camera_config):
             continue
 
-        preserve_media = camera_config.get(f'@preserve_{media_type}s', 0)
+        preserve_media = camera_config.get(f"@preserve_{media_type}s", 0)
         if preserve_media == 0:
             continue  # preserve forever
 
-        still_images_enabled = bool(camera_config['picture_filename']) or bool(
-            camera_config['snapshot_filename']
+        still_images_enabled = bool(camera_config["picture_filename"]) or bool(
+            camera_config["snapshot_filename"]
         )
-        movies_enabled = bool(camera_config['movie_output'])
+        movies_enabled = bool(camera_config["movie_output"])
 
-        if media_type == 'picture' and not still_images_enabled:
+        if media_type == "picture" and not still_images_enabled:
             continue  # only cleanup pictures for cameras with still images enabled
 
-        elif media_type == 'movie' and not movies_enabled:
+        elif media_type == "movie" and not movies_enabled:
             continue  # only cleanup movies for cameras with movies enabled
 
         preserve_moment = datetime.datetime.now() - datetime.timedelta(
             days=preserve_media
         )
 
-        target_dir = camera_config.get('target_dir')
-        cloud_enabled = camera_config.get('@upload_enabled')
-        clean_cloud_enabled = camera_config.get('@clean_cloud_enabled')
-        cloud_dir = camera_config.get('@upload_location')
-        service_name = camera_config.get('@upload_service')
+        target_dir = camera_config.get("target_dir")
+        cloud_enabled = camera_config.get("@upload_enabled")
+        clean_cloud_enabled = camera_config.get("@clean_cloud_enabled")
+        cloud_dir = camera_config.get("@upload_location")
+        service_name = camera_config.get("@upload_service")
         clean_cloud_info = None
         if (
             cloud_enabled
@@ -408,16 +507,16 @@ def cleanup_media(media_type: str) -> None:
             and cloud_dir
         ):
             clean_cloud_info = {
-                'camera_id': camera_id,
-                'service_name': service_name,
-                'cloud_dir': cloud_dir,
+                "camera_id": camera_id,
+                "service_name": service_name,
+                "cloud_dir": cloud_dir,
             }
         if os.path.exists(target_dir):
             # create a sentinel file to make sure the target dir is never removed
-            open(os.path.join(target_dir, '.keep'), 'w').close()
+            open(os.path.join(target_dir, ".keep"), "w").close()
 
         logging.debug(
-            f'calling _remove_older_files: {cloud_enabled} {clean_cloud_enabled} {clean_cloud_info}'
+            f"calling _remove_older_files: {cloud_enabled} {clean_cloud_enabled} {clean_cloud_info}"
         )
         _remove_older_files(
             target_dir, preserve_moment, clean_cloud_info or {}, exts=exts
@@ -425,31 +524,34 @@ def cleanup_media(media_type: str) -> None:
 
 
 def make_movie_preview(camera_config: dict, full_path: str) -> typing.Union[str, None]:
-    framerate = camera_config['framerate']
-    pre_capture = camera_config['pre_capture']
+    if ".." in full_path.split("/"):
+        raise Exception(f'Path traversal detected in full_path "{full_path}"')
+
+    framerate = camera_config["framerate"]
+    pre_capture = camera_config["pre_capture"]
     offs = pre_capture / framerate
     offs = max(4, offs * 2)
     path = quote(full_path)
-    thumb_path = full_path + '.thumb'
+    thumb_path = full_path + ".thumb"
 
-    target_dir: str = camera_config['target_dir']
+    target_dir: str = camera_config["target_dir"]
     utils.validate_paths(
         full_path.removeprefix(target_dir + os.sep),
         target_dir=target_dir,
     )
 
     logging.debug(
-        f'creating movie preview for {full_path} with an offset of {offs} seconds...'
+        f"creating movie preview for {full_path} with an offset of {offs} seconds..."
     )
 
-    cmd = f'ffmpeg -i {path} -f mjpeg -vframes 1 -ss {offs} -y {path}.thumb'
+    cmd = f"ffmpeg -i {path} -f mjpeg -vframes 1 -ss {offs} -y {path}.thumb"
     logging.debug(f'running command "{cmd}"')
 
     try:
         utils.call_subprocess(cmd.split(), stderr=subprocess.STDOUT)
 
     except subprocess.CalledProcessError as e:
-        logging.error(f'failed to create movie preview for {full_path}: {e}')
+        logging.error(f"failed to create movie preview for {full_path}: {e}")
 
         return None
 
@@ -457,16 +559,16 @@ def make_movie_preview(camera_config: dict, full_path: str) -> typing.Union[str,
         st = os.stat(thumb_path)
 
     except OSError:
-        logging.error(f'failed to create movie preview for {full_path}')
+        logging.error(f"failed to create movie preview for {full_path}")
 
         return None
 
     if st.st_size == 0:
         logging.debug(
-            f'movie probably too short, grabbing first frame from {full_path}...'
+            f"movie probably too short, grabbing first frame from {full_path}..."
         )
 
-        cmd = f'ffmpeg -i {path} -f mjpeg -vframes 1 -ss 0 -y {path}.thumb'
+        cmd = f"ffmpeg -i {path} -f mjpeg -vframes 1 -ss 0 -y {path}.thumb"
         logging.debug(f'running command "{cmd}"')
 
         # try again, this time grabbing the very first frame
@@ -474,7 +576,7 @@ def make_movie_preview(camera_config: dict, full_path: str) -> typing.Union[str,
             utils.call_subprocess(cmd.split(), stderr=subprocess.STDOUT)
 
         except subprocess.CalledProcessError as e:
-            logging.error(f'failed to create movie preview for {full_path}: {e}')
+            logging.error(f"failed to create movie preview for {full_path}: {e}")
 
             return None
 
@@ -482,12 +584,12 @@ def make_movie_preview(camera_config: dict, full_path: str) -> typing.Union[str,
             st = os.stat(thumb_path)
 
         except OSError:
-            logging.error(f'failed to create movie preview for {full_path}')
+            logging.error(f"failed to create movie preview for {full_path}")
 
             return None
 
     if st.st_size == 0:
-        logging.error(f'failed to create movie preview for {full_path}')
+        logging.error(f"failed to create movie preview for {full_path}")
         try:
             os.remove(thumb_path)
 
@@ -505,16 +607,20 @@ def list_media(
     prefix: str | None = None,
     with_stat: bool = True,
 ) -> typing.Awaitable:
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(prefix, target_dir=target_dir)
+    if prefix is not None and ".." in prefix.split("/"):
+        raise Exception(f'Path traversal detected in prefix "{prefix}"')
 
-    if media_type == 'picture':
+    fut: Future = Future()
+
+    if media_type == "picture":
         exts = _PICTURE_EXTS
 
-    elif media_type == 'movie':
+    elif media_type == "movie":
         exts = _MOVIE_EXTS
 
-    logging.debug('starting media listing subprocess...')
+    logging.debug("starting media listing subprocess...")
 
     parent_pipe, child_pipe = multiprocessing.Pipe(duplex=False)
     process = multiprocessing.Process(
@@ -545,7 +651,7 @@ def list_media(
                 read_media_list()
 
             else:  # process did not finish in time
-                logging.error('timeout waiting for the media listing process to finish')
+                logging.error("timeout waiting for the media listing process to finish")
                 try:
                     os.kill(process.pid, SIGKILL)
 
@@ -556,7 +662,7 @@ def list_media(
 
         else:  # finished
             read_media_list()
-            logging.debug(f'media listing process has returned {len(media_list)} files')
+            logging.debug(f"media listing process has returned {len(media_list)} files")
             fut.set_result(media_list)
 
     fut: Future = Future()
@@ -565,23 +671,29 @@ def list_media(
 
 
 def get_media_path(camera_config, path: str, media_type):
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(path, target_dir=target_dir)
+    if ".." in path.split("/"):
+        raise Exception(f'Path traversal detected in path "{path}"')
+
     full_path = os.path.join(target_dir, path)
     return full_path
 
 
 def get_media_content(camera_config, path: str, media_type):
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(path, target_dir=target_dir)
+    if ".." in path.split("/"):
+        raise Exception(f'Path traversal detected in path "{path}"')
+
     full_path = os.path.join(target_dir, path)
 
     try:
-        with open(full_path, 'rb') as f:
+        with open(full_path, "rb") as f:
             return f.read()
 
     except Exception as e:
-        logging.error(f'failed to read file {full_path}: {str(e)}')
+        logging.error(f"failed to read file {full_path}: {str(e)}")
 
         return None
 
@@ -589,19 +701,23 @@ def get_media_content(camera_config, path: str, media_type):
 def get_zipped_content(
     camera_config: dict, media_type: str, group: str
 ) -> typing.Awaitable:
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(group, target_dir=target_dir)
+    if ".." in group.split("/"):
+        raise Exception(f'Path traversal detected in group "{group}"')
 
-    if media_type == 'picture':
+    fut: Future = Future()
+
+    if media_type == "picture":
         exts = _PICTURE_EXTS
 
-    elif media_type == 'movie':
+    elif media_type == "movie":
         exts = _MOVIE_EXTS
 
-    working = multiprocessing.Value('b')
+    working = multiprocessing.Value("b")
     working.value = True
 
-    logging.debug('starting zip subprocess...')
+    logging.debug("starting zip subprocess...")
 
     parent_pipe, child_pipe = multiprocessing.Pipe(duplex=False)
     process = multiprocessing.Process(
@@ -622,7 +738,7 @@ def get_zipped_content(
                 io_loop.add_timeout(datetime.timedelta(seconds=0.5), poll_process)
 
             else:  # process did not finish in time
-                logging.error('timeout waiting for the zip process to finish')
+                logging.error("timeout waiting for the zip process to finish")
                 try:
                     os.kill(process.pid, SIGTERM)
 
@@ -634,7 +750,7 @@ def get_zipped_content(
         else:  # finished
             try:
                 data = parent_pipe.recv()
-                logging.debug(f'zip process has returned {len(data)} bytes')
+                logging.debug(f"zip process has returned {len(data)} bytes")
 
             except:
                 data = None
@@ -647,25 +763,28 @@ def get_zipped_content(
 
 
 def make_timelapse_movie(camera_config, framerate, interval, group: str):
+    target_dir = camera_config.get("target_dir")
+    utils.validate_paths(group, target_dir=target_dir)
+    if ".." in group.split("/"):
+        raise Exception(f'Path traversal detected in group "{group}"')
+
     global _timelapse_process
     global _timelapse_data
 
-    target_dir = camera_config.get('target_dir')
-    utils.validate_paths(group, target_dir=target_dir)
     # save movie_codec as a different variable so it doesn't get lost in the CODEC_MAPPING
-    movie_codec = camera_config.get('movie_codec')
+    movie_codec = camera_config.get("movie_codec")
 
     codec = FFMPEG_CODEC_MAPPING.get(movie_codec, movie_codec)
     fmt = FFMPEG_FORMAT_MAPPING.get(movie_codec, movie_codec)
     file_format = FFMPEG_EXT_MAPPING.get(movie_codec, movie_codec)
 
-    logging.debug('starting picture listing subprocess...')
+    logging.debug("starting picture listing subprocess...")
 
     parent_pipe, child_pipe = multiprocessing.Pipe(duplex=False)
     _timelapse_process = multiprocessing.Process(
         target=_do_list_pictures, args=(child_pipe, target_dir, group)
     )
-    setattr(_timelapse_process, 'progress', 0)
+    setattr(_timelapse_process, "progress", 0)
     _timelapse_process.start()
     _timelapse_data = None
 
@@ -675,7 +794,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
     media_list = []
 
     # use correct extension for the movie_codec
-    tmp_filename = os.path.join(settings.MEDIA_PATH, f'.{int(time())}.{file_format}')
+    tmp_filename = os.path.join(settings.MEDIA_PATH, f".{int(time())}.{file_format}")
 
     def read_media_list():
         while parent_pipe.poll():
@@ -699,7 +818,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
                 read_media_list()
 
             else:  # process did not finish in time
-                logging.error('timeout waiting for the media listing process to finish')
+                logging.error("timeout waiting for the media listing process to finish")
                 try:
                     os.kill(_timelapse_process.pid, SIGTERM)
 
@@ -710,7 +829,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
 
         else:  # finished
             read_media_list()
-            logging.debug(f'media listing process has returned {len(media_list)} files')
+            logging.debug(f"media listing process has returned {len(media_list)} files")
 
             if not media_list:
                 _timelapse_process.progress = -1
@@ -721,16 +840,16 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
             make_movie(pictures)
 
     def select_pictures(media_list):
-        media_list.sort(key=lambda e: e['timestamp'])
-        start = media_list[0]['timestamp']
+        media_list.sort(key=lambda e: e["timestamp"])
+        start = media_list[0]["timestamp"]
         slices = {}
         max_idx = 0
         for m in media_list:
-            offs = m['timestamp'] - start
+            offs = m["timestamp"] - start
             pos = float(offs) / interval - 0.5
             idx = int(round(pos))
             max_idx = idx
-            m['delta'] = abs(pos - idx)
+            m["delta"] = abs(pos - idx)
             slices.setdefault(idx, []).append(m)
 
         selected = []
@@ -739,9 +858,9 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
             if not s:
                 continue
 
-            selected.append(min(s, key=lambda m: m['delta']))
+            selected.append(min(s, key=lambda m: m["delta"]))
 
-        logging.debug(f'selected {len(selected)}/{len(media_list)} media files')
+        logging.debug(f"selected {len(selected)}/{len(media_list)} media files")
 
         return selected
 
@@ -749,21 +868,21 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
         global _timelapse_process
 
         # don't specify file format with -f, let ffmpeg work it out from the extension
-        cmd = 'rm -f %(tmp_filename)s;'
+        cmd = "rm -f %(tmp_filename)s;"
         cmd += (
-            'cat %(jpegs)s | ffmpeg -framerate %(framerate)s -f image2pipe -vcodec mjpeg -i - -vcodec %(codec)s '
-            '-format %(format)s -b:v %(bitrate)s -qscale:v 0.1 %(tmp_filename)s'
+            "cat %(jpegs)s | ffmpeg -framerate %(framerate)s -f image2pipe -vcodec mjpeg -i - -vcodec %(codec)s "
+            "-format %(format)s -b:v %(bitrate)s -qscale:v 0.1 %(tmp_filename)s"
         )
 
         bitrate = 9999999
 
         cmd = cmd % {
-            'tmp_filename': tmp_filename,
-            'jpegs': ' '.join(('"' + p['path'] + '"') for p in pictures),
-            'framerate': framerate,
-            'codec': codec,
-            'format': fmt,
-            'bitrate': bitrate,
+            "tmp_filename": tmp_filename,
+            "jpegs": " ".join(('"' + p["path"] + '"') for p in pictures),
+            "framerate": framerate,
+            "codec": codec,
+            "format": fmt,
+            "bitrate": bitrate,
         }
 
         logging.debug(f'executing "{cmd}"')
@@ -802,7 +921,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
 
                 raise
 
-            frame_index = re.findall(br'frame=\s*(\d+)', output)
+            frame_index = re.findall(rb"frame=\s*(\d+)", output)
             try:
                 frame_index = int(frame_index[-1])
 
@@ -812,7 +931,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
             _timelapse_process.progress = max(0.01, float(frame_index) / len(pictures))
 
             logging.debug(
-                f'timelapse progress: {int(100 * _timelapse_process.progress)} %'
+                f"timelapse progress: {int(100 * _timelapse_process.progress)} %"
             )
 
         else:  # finished
@@ -820,7 +939,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
             _timelapse_process = None
 
             if exit_code != 0:
-                logging.error('ffmpeg process failed')
+                logging.error("ffmpeg process failed")
                 _timelapse_data = None
 
                 try:
@@ -835,11 +954,11 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
                 )
 
                 try:
-                    with open(tmp_filename, mode='rb') as f:
+                    with open(tmp_filename, mode="rb") as f:
                         _timelapse_data = f.read()
 
                     logging.debug(
-                        f'timelapse movie process has returned {len(_timelapse_data)} bytes'
+                        f"timelapse movie process has returned {len(_timelapse_data)} bytes"
                     )
 
                 except Exception as e:
@@ -860,26 +979,29 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
 def check_timelapse_movie():
     if _timelapse_process:
         if (
-            hasattr(_timelapse_process, 'poll') and _timelapse_process.poll() is None
+            hasattr(_timelapse_process, "poll") and _timelapse_process.poll() is None
         ) or (
-            hasattr(_timelapse_process, 'is_alive') and _timelapse_process.is_alive()
+            hasattr(_timelapse_process, "is_alive") and _timelapse_process.is_alive()
         ):
-            return {'progress': _timelapse_process.progress, 'data': None}
+            return {"progress": _timelapse_process.progress, "data": None}
 
         else:
-            return {'progress': _timelapse_process.progress, 'data': _timelapse_data}
+            return {"progress": _timelapse_process.progress, "data": _timelapse_data}
 
     else:
-        return {'progress': -1, 'data': _timelapse_data}
+        return {"progress": -1, "data": _timelapse_data}
 
 
 def get_media_preview(camera_config, path: str, media_type, width, height):
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(path, target_dir=target_dir)
+    if ".." in path.split("/"):
+        raise Exception(f'Path traversal detected in path "{path}"')
+
     full_path = os.path.join(target_dir, path)
 
-    if media_type == 'movie':
-        if not os.path.exists(full_path + '.thumb'):
+    if media_type == "movie":
+        if not os.path.exists(full_path + ".thumb"):
             # at this point we expect the thumb to
             # have already been created by the thumbnailer task;
             # if, for some reason that's not the case,
@@ -887,14 +1009,14 @@ def get_media_preview(camera_config, path: str, media_type, width, height):
             if not make_movie_preview(camera_config, full_path):
                 return None
 
-        full_path += '.thumb'
+        full_path += ".thumb"
 
     try:
-        with open(full_path, 'rb') as f:
+        with open(full_path, "rb") as f:
             content = f.read()
 
     except Exception as e:
-        logging.error(f'failed to read file {full_path}: {e}')
+        logging.error(f"failed to read file {full_path}: {e}")
         return None
 
     if width is height is None:
@@ -905,7 +1027,7 @@ def get_media_preview(camera_config, path: str, media_type, width, height):
         image = Image.open(bio)
 
     except Exception as e:
-        logging.error(f'failed to open media preview image file: {e}')
+        logging.error(f"failed to open media preview image file: {e}")
         return None
 
     width = width and int(float(width)) or image.size[0]
@@ -914,18 +1036,21 @@ def get_media_preview(camera_config, path: str, media_type, width, height):
     image.thumbnail((width, height))
 
     bio = BytesIO()
-    image.save(bio, format='JPEG')
+    image.save(bio, format="JPEG")
 
     return bio.getvalue()
 
 
 def del_media_content(camera_config, path: str, media_type):
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(path, target_dir=target_dir)
+    if ".." in path.split("/"):
+        raise Exception(f'Path traversal detected in path "{path}"')
+
     full_path = os.path.join(target_dir, path)
 
     # create a sentinel file to make sure the target dir is never removed
-    open(os.path.join(target_dir, '.keep'), 'w').close()
+    open(os.path.join(target_dir, ".keep"), "w").close()
 
     try:
         # remove the file itself
@@ -933,7 +1058,7 @@ def del_media_content(camera_config, path: str, media_type):
 
         # remove the thumb file
         try:
-            os.remove(full_path + '.thumb')
+            os.remove(full_path + ".thumb")
 
         except:
             pass
@@ -941,35 +1066,37 @@ def del_media_content(camera_config, path: str, media_type):
         # remove the parent directories if empty or contains only thumb files
         dir_path = os.path.dirname(full_path)
         listing = os.listdir(dir_path)
-        thumbs = [l for l in listing if l.endswith('.thumb')]
+        thumbs = [l for l in listing if l.endswith(".thumb")]
 
         if len(listing) == len(thumbs):  # only thumbs
             for p in thumbs:
                 os.remove(os.path.join(dir_path, p))
 
         if not listing or len(listing) == len(thumbs):
-            logging.debug(f'removing empty directory {dir_path}...')
+            logging.debug(f"removing empty directory {dir_path}...")
             os.removedirs(dir_path)
 
     except Exception as e:
-        logging.error(f'failed to remove file {full_path}: {str(e)}')
+        logging.error(f"failed to remove file {full_path}: {str(e)}")
 
         raise
 
 
 def del_media_group(camera_config, group: str, media_type):
-    target_dir = camera_config.get('target_dir')
+    target_dir = camera_config.get("target_dir")
     utils.validate_paths(group, target_dir=target_dir)
-    full_path = os.path.join(target_dir, group)
+    if ".." in group.split("/"):
+        raise Exception(f'Path traversal detected in group "{group}"')
 
-    if media_type == 'picture':
+    if media_type == "picture":
         exts = _PICTURE_EXTS
 
     else:  # media_type == 'movie'
-        exts = _MOVIE_EXTS + ['.thumb']
+        exts = _MOVIE_EXTS + [".thumb"]
 
+    full_path = os.path.join(target_dir, group)
     # create a sentinel file to make sure the target dir is never removed
-    open(os.path.join(target_dir, '.keep'), 'w').close()
+    open(os.path.join(target_dir, ".keep"), "w").close()
 
     mf = _list_media_files(target_dir, exts, sub_path=group, with_stat=False)
     for path, st in mf:  # st will be None when with_stat=False
@@ -977,26 +1104,26 @@ def del_media_group(camera_config, group: str, media_type):
             os.remove(path)
 
         except Exception as e:
-            logging.error(f'failed to remove file {full_path}: {str(e)}')
+            logging.error(f"failed to remove file {full_path}: {str(e)}")
             raise
 
     # remove the group directory if empty or contains only thumb files
     listing = os.listdir(full_path)
-    thumbs = [l for l in listing if l.endswith('.thumb')]
+    thumbs = [l for l in listing if l.endswith(".thumb")]
 
     if len(listing) == len(thumbs):  # only thumbs
         for p in thumbs:
             os.remove(os.path.join(full_path, p))
 
     if not listing or len(listing) == len(thumbs):
-        logging.debug(f'removing empty directory {full_path}...')
+        logging.debug(f"removing empty directory {full_path}...")
         os.removedirs(full_path)
 
 
 def get_current_picture(camera_config, width, height):
     from motioneye import mjpgclient
 
-    jpg = mjpgclient.get_jpg(camera_config['@id'])
+    jpg = mjpgclient.get_jpg(camera_config["@id"])
 
     if jpg is None:
         return None
@@ -1009,7 +1136,7 @@ def get_current_picture(camera_config, width, height):
         image = Image.open(bio)
 
     except Exception as e:
-        logging.error(f'failed to open media image file: {e}')
+        logging.error(f"failed to open media image file: {e}")
         return None
 
     if width and width < 1:  # given as percent
@@ -1020,7 +1147,7 @@ def get_current_picture(camera_config, width, height):
     width = width and int(width) or image.size[0]
     height = height and int(height) or image.size[1]
 
-    webcam_resolution = camera_config['@webcam_resolution']
+    webcam_resolution = camera_config["@webcam_resolution"]
     max_width = image.size[0] * webcam_resolution / 100
     max_height = image.size[1] * webcam_resolution / 100
 
@@ -1033,7 +1160,7 @@ def get_current_picture(camera_config, width, height):
     image.thumbnail((width, height))
 
     bio = BytesIO()
-    image.save(bio, format='JPEG')
+    image.save(bio, format="JPEG")
 
     return bio.getvalue()
 

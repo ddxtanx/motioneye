@@ -1097,13 +1097,13 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
         if data.get('rotate') in [90, 270]:
             capture_width, capture_height = capture_height, capture_width
 
-        data['mask_privacy'] = utils.build_editable_mask_file(
-            prev_config['@id'],
-            'privacy',
-            ui['privacy_mask_lines'],
-            capture_width,
-            capture_height,
-        )
+        # data['mask_privacy'] = utils.build_editable_mask_file(
+        #     prev_config['@id'],
+        #     'privacy',
+        #     ui['privacy_mask_lines'],
+        #     capture_width,
+        #     capture_height,
+        # )
 
     data['target_dir'] = input_sanity_check(
         dirnameValidRegExp, ui['root_directory'], 'target_dir', dirnameFailMessage
@@ -1248,13 +1248,13 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
             if data.get('rotate') in [90, 270]:
                 capture_width, capture_height = capture_height, capture_width
 
-            data['mask_file'] = utils.build_editable_mask_file(
-                prev_config['@id'],
-                'motion',
-                ui['motion_mask_lines'],
-                capture_width,
-                capture_height,
-            )
+            # data['mask_file'] = utils.build_editable_mask_file(
+            #     prev_config['@id'],
+            #     'motion',
+            #     ui['motion_mask_lines'],
+            #     capture_width,
+            #     capture_height,
+            # )
 
     # working schedule
     if ui['working_schedule']:
@@ -2262,6 +2262,8 @@ def _dict_to_conf(lines, data, list_names=None):
 
         if name in list_names:
             new_value = data.get(name)
+            if name == "mask_privacy" or name == "mask_file":
+                new_value = value
             if new_value is not None:
                 for v in new_value:
                     if v is None:
@@ -2276,6 +2278,8 @@ def _dict_to_conf(lines, data, list_names=None):
 
         else:
             new_value = data.get(name)
+            if name == "mask_privacy" or name == "mask_file":
+                new_value = value
             if new_value is not None:
                 value = _python_to_value(new_value)
                 line = name + ' ' + value
