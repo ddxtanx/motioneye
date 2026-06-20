@@ -22,13 +22,13 @@ import multiprocessing
 import os.path
 import re
 import subprocess
-import typing
 from errno import EAGAIN, ENOENT
 from hashlib import sha1
 from io import BytesIO
 from shlex import quote
 from signal import SIGKILL, SIGTERM
 from time import time
+from typing import Awaitable, List, Optional
 from zipfile import ZipFile
 
 from PIL import Image
@@ -38,8 +38,8 @@ from tornado.ioloop import IOLoop
 from motioneye import config, settings, uploadservices, utils
 from motioneye.utils.dtconv import pretty_date_time
 
-_PICTURE_EXTS = [".jpg"]
-_MOVIE_EXTS = [".avi", ".mp4", ".mov", ".swf", ".flv", ".mkv"]
+_PICTURE_EXTS = ['.jpg']
+_MOVIE_EXTS = ['.avi', '.mp4', '.mov', '.swf', '.flv', '.mkv', '.mpg']
 
 FFMPEG_CODEC_MAPPING = {
     "mpeg4": "mpeg4",
@@ -205,10 +205,10 @@ def do_list_media(pipe, target_dir, group):
 
 def _list_media_files(
     base_path: str,
-    exts: typing.List[str],
-    sub_path: str | None = None,
+    exts: List[str],
+    sub_path: Optional[str] = None,
     with_stat: bool = True,
-) -> typing.List[tuple]:
+) -> List[tuple]:
     # Determine scan path based on sub_path parameter
     if sub_path is not None:
         if sub_path == "ungrouped":
@@ -255,7 +255,7 @@ def _remove_older_files(
     directory: str,
     moment: datetime.datetime,
     clean_cloud_info: dict,
-    exts: typing.List[str],
+    exts: List[str],
 ):
     removed_folder_count = 0
     for full_path, st in _list_media_files(directory, exts, with_stat=True):
@@ -280,7 +280,7 @@ def _remove_older_files(
                 continue
 
             listing = os.listdir(dir_path)
-            thumbs = [l for l in listing if l.endswith(".thumb")]
+            thumbs = [line for line in listing if line.endswith('.thumb')]
 
             if len(listing) == len(thumbs):  # only thumbs
                 for p in thumbs:
@@ -429,8 +429,8 @@ def find_ffmpeg() -> tuple:
         logging.error(f"ffmpeg: could not list supported codecs: {e}")
         return None, None, None
 
-    lines = output.split("\n")
-    lines = [l for l in lines if re.match("^ [DEVILSA.]{6} [^=].*", l)]
+    lines = output.split('\n')
+    lines = [line for line in lines if re.match('^ [DEVILSA.]{6} [^=].*', line)]
 
     codecs = {}
     for line in lines:
@@ -523,14 +523,37 @@ def cleanup_media(media_type: str) -> None:
         )
 
 
-def make_movie_preview(camera_config: dict, full_path: str) -> typing.Union[str, None]:
-    if ".." in full_path.split("/"):
-        raise Exception(f'Path traversal detected in full_path "{full_path}"')
+def get_movie_duration_seconds(path: str) -> int:
+    cmd = [
+        'ffprobe',
+        '-v',
+        'error',
+        '-show_entries',
+        'format=duration',
+        '-of',
+        'default=noprint_wrappers=1:nokey=1',
+        path,
+    ]
 
-    framerate = camera_config["framerate"]
-    pre_capture = camera_config["pre_capture"]
+    try:
+        result = utils.call_subprocess(cmd, stderr=None)
+        duration_seconds = int(float(result))
+        return duration_seconds
+
+    except Exception as e:
+        logging.error(f'failed to determine duration of {path}: {e}')
+        return 0
+
+
+def make_movie_preview(camera_config: dict, full_path: str) -> Optional[str]:
+    framerate = camera_config['framerate']
+    pre_capture = camera_config['pre_capture']
     offs = pre_capture / framerate
-    offs = max(4, offs * 2)
+    movie_duration = get_movie_duration_seconds(full_path)
+    offs = max(
+        (x for x in {offs * 2, offs} if x <= movie_duration), default=movie_duration / 2
+    )
+
     path = quote(full_path)
     thumb_path = full_path + ".thumb"
 
@@ -604,10 +627,10 @@ def make_movie_preview(camera_config: dict, full_path: str) -> typing.Union[str,
 def list_media(
     camera_config: dict,
     media_type: str,
-    prefix: str | None = None,
+    prefix: Optional[str] = None,
     with_stat: bool = True,
-) -> typing.Awaitable:
-    target_dir = camera_config.get("target_dir")
+) -> Awaitable:
+    target_dir = camera_config.get('target_dir')
     utils.validate_paths(prefix, target_dir=target_dir)
     if prefix is not None and ".." in prefix.split("/"):
         raise Exception(f'Path traversal detected in prefix "{prefix}"')
@@ -921,7 +944,7 @@ def make_timelapse_movie(camera_config, framerate, interval, group: str):
 
                 raise
 
-            frame_index = re.findall(rb"frame=\s*(\d+)", output)
+            frame_index = re.findall(rb'frame=\s*(\d+)', output)
             try:
                 frame_index = int(frame_index[-1])
 
@@ -1066,7 +1089,7 @@ def del_media_content(camera_config, path: str, media_type):
         # remove the parent directories if empty or contains only thumb files
         dir_path = os.path.dirname(full_path)
         listing = os.listdir(dir_path)
-        thumbs = [l for l in listing if l.endswith(".thumb")]
+        thumbs = [line for line in listing if line.endswith('.thumb')]
 
         if len(listing) == len(thumbs):  # only thumbs
             for p in thumbs:
@@ -1109,7 +1132,7 @@ def del_media_group(camera_config, group: str, media_type):
 
     # remove the group directory if empty or contains only thumb files
     listing = os.listdir(full_path)
-    thumbs = [l for l in listing if l.endswith(".thumb")]
+    thumbs = [line for line in listing if line.endswith('.thumb')]
 
     if len(listing) == len(thumbs):  # only thumbs
         for p in thumbs:
@@ -1170,7 +1193,7 @@ def get_prepared_cache(key):
 
 
 def set_prepared_cache(data):
-    key = sha1(str(time()).encode()).hexdigest()  # nosec B303
+    key = sha1(str(time()).encode()).hexdigest()  # nosec B303, B324
 
     if key in _prepared_files:
         logging.warning(f'key "{key}" already present in prepared cache')

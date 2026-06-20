@@ -14,26 +14,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import collections
-import datetime
-import glob
-import hashlib
 import logging
 import os.path
 import subprocess
+import tarfile
+from collections import OrderedDict
+from datetime import timedelta
 from errno import EEXIST, ENOENT
+from fnmatch import fnmatchcase
+from glob import glob
+from io import BytesIO
 from os import stat
 from re import match, sub
+from secrets import token_hex
 from shlex import split
 from stat import S_IMODE
+from typing import Optional
 from urllib.parse import quote, urlunparse
 
+from argon2 import PasswordHasher
 from tornado.ioloop import IOLoop
 
 from motioneye import meyectl, motionctl, settings, tasks, uploadservices, utils
 from motioneye.controls import diskctl, smbctl, v4l2ctl
 from motioneye.controls.powerctl import PowerControl
 
+ph = PasswordHasher()
 _CAMERA_CONFIG_FILE_NAME = 'camera-%(id)s.conf'
 _MAIN_CONFIG_FILE_NAME = 'motion.conf'
 _ACTIONS = [
@@ -63,10 +69,10 @@ _ACTIONS = [
 _main_config_cache = None
 _camera_config_cache: dict = {}
 _camera_ids_cache = None
-_additional_section_funcs = []
-_additional_config_funcs = []
-_additional_structure_cache = {}
-_monitor_command_cache = {}
+_additional_section_funcs: list = []
+_additional_config_funcs: list = []
+_additional_structure_cache: dict = {}
+_monitor_command_cache: dict = {}
 
 _USED_MOTION_OPTIONS = {
     'auto_brightness',
@@ -188,7 +194,7 @@ _MOTION_43_TO_41_OPTIONS_MAPPING = {
 
 def netcam_keepalive_params(v, data):
     # value can be 'force' as well
-    v = 'on' if v == True else 'off' if v == False else v
+    v = 'on' if v == True else 'off' if v == False else v  # noqa: E712
 
     if 'netcam_params' in data and data['netcam_params']:
         return {'netcam_params': data['netcam_params'] + ',keepalive = ' + v}
@@ -298,7 +304,6 @@ def get_main(as_lines=False):
 
         else:
             logging.error(f'could not open main config file {config_file_path}: {e}')
-
             raise
 
     if f and S_IMODE(stat(config_file_path).st_mode) != 0o600:
@@ -336,8 +341,33 @@ def get_main(as_lines=False):
             '@admin_password',
             '@normal_username',
             '@normal_password',
+            '@relay_secret',
+            '@client_secret',
         ],
     )
+
+    # Generate relay secret if it doesn't exist (for Motion daemon relay event authentication)
+    save_needed = False
+    relay_secret = main_config.get('@relay_secret')
+    if not relay_secret:
+        logging.info('Generating new relay secret for Motion daemon authentication')
+        relay_secret = token_hex(32)  # 64-character hex string
+        main_config['@relay_secret'] = relay_secret
+        save_needed = True
+
+    # Generate client secret if it doesn't exist (for HMAC authentication from remote instances)
+    client_secret = main_config.get('@client_secret')
+    if not client_secret:
+        logging.info('Generating new client secret for remote HMAC authentication')
+        client_secret = token_hex(32)  # 64-character hex string
+        main_config['@client_secret'] = client_secret
+        save_needed = True
+
+    if save_needed:
+        logging.info('Saving migrated passwords and secrets to config file')
+        # Cache must be set before calling set_main to avoid AttributeError
+        _main_config_cache = main_config
+        set_main(main_config)
 
     # adapt directives for motion versions < 4.2 and > 4.3
     adapt_config_directives(main_config, _MOTION_41_TO_43_OPTIONS_MAPPING)
@@ -455,6 +485,12 @@ def get_enabled_local_motion_cameras():
     return [c for c in cameras if c.get('@enabled') and utils.is_local_motion_camera(c)]
 
 
+def get_relay_secret():
+    """Get the relay event secret for Motion daemon authentication."""
+    main_config = get_main()
+    return main_config.get('@relay_secret', '')
+
+
 def get_network_shares():
     if not get_main().get('@enabled'):
         return []
@@ -541,6 +577,7 @@ def get_camera(camera_id, as_lines=False):
             '@upload_secret_key',
             '@upload_bucket',
             '@upload_sse_c_key',
+            '@remote_secret',
             'camera_name',
         ],
     )
@@ -658,6 +695,28 @@ def set_camera(camera_id, camera_config):
         f.close()
 
 
+def make_netcam_userpass(url, raw_username, raw_password, camera_id):
+    raw_username = str(raw_username)
+    raw_password = str(raw_password)
+
+    # Motion's mjpeg/mjpg/jpeg/ftp auth handling expects plain userpass here.
+    if url.lower().startswith(('mjpeg', 'mjpg', 'jpeg', 'ftp')):
+        userpass = f'{raw_username}:{raw_password}'
+    else:
+        # For other protocols, credentials go to ffmpeg as URL userinfo,
+        # so reserved characters (e.g. "@", "#") must be percent-encoded.
+        username = quote(raw_username, safe='')
+        password = quote(raw_password, safe='')
+        userpass = f'{username}:{password}'
+
+        if username != raw_username or password != raw_password:
+            logging.debug(
+                f'credentials for camera {camera_id} have been percent-encoded'
+            )
+
+    return userpass
+
+
 def add_camera(device_details):
     global _camera_ids_cache
 
@@ -698,9 +757,9 @@ def add_camera(device_details):
         camera_config['@host'] = device_details['host']
         camera_config['@port'] = device_details['port']
         camera_config['@path'] = device_details['path']
-        camera_config['@username'] = device_details['username']
-        camera_config['@password'] = device_details['password']
         camera_config['@remote_camera_id'] = device_details['remote_camera_id']
+        if device_details.get('remote_secret'):
+            camera_config['@remote_secret'] = device_details['remote_secret']
 
     elif proto == 'mmal':
         camera_config['mmalcam_name'] = device_details['path']
@@ -711,25 +770,12 @@ def add_camera(device_details):
         camera_config['netcam_url'] = device_details['url']
 
         if device_details['username']:
-            raw_username = str(device_details['username'])
-            raw_password = str(device_details['password'])
-
-            # Motion's mjpeg/mjpg/jpeg/ftp auth handling expects plain userpass here.
-            if camera_config['netcam_url'].startswith(('mjpeg', 'mjpg', 'jpeg', 'ftp')):
-                userpass = f"{raw_username}:{raw_password}"
-            else:
-                # For other protocols, credentials go to ffmpeg as URL userinfo,
-                # so reserved characters (e.g. "@", "#") must be percent-encoded.
-                username = quote(raw_username, safe='')
-                password = quote(raw_password, safe='')
-                userpass = f'{username}:{password}'
-
-                if username != raw_username or password != raw_password:
-                    logging.debug(
-                        f'credentials for camera {camera_id} have been percent-encoded'
-                    )
-
-            camera_config['netcam_userpass'] = userpass
+            camera_config['netcam_userpass'] = make_netcam_userpass(
+                camera_config['netcam_url'],
+                device_details['username'],
+                device_details['password'],
+                camera_id,
+            )
 
         camera_config['netcam_keepalive'] = device_details.get('keep_alive', False)
         camera_config['netcam_tolerant_check'] = True
@@ -804,6 +850,8 @@ def rem_camera(camera_id):
 
 
 def main_ui_to_dict(ui):
+    from motioneye.handlers.base import invalidate_user_sessions
+
     data = {
         '@admin_username': ui['admin_username'],
         '@normal_username': ui['normal_username'],
@@ -824,17 +872,19 @@ def main_ui_to_dict(ui):
 
     if ui.get('admin_password') is not None:
         if ui['admin_password']:
-            data['@admin_password'] = hashlib.sha1(
-                ui['admin_password'].encode('utf-8')
-            ).hexdigest()
-
+            data['@admin_password'] = ph.hash(ui['admin_password'])
+            invalidate_user_sessions('admin')
         else:
             data['@admin_password'] = ''
 
         call_hook(ui['admin_username'], ui['admin_password'])
 
     if ui.get('normal_password') is not None:
-        data['@normal_password'] = ui['normal_password']
+        if ui['normal_password']:
+            data['@normal_password'] = ph.hash(ui['normal_password'])
+            invalidate_user_sessions('normal')
+        else:
+            data['@normal_password'] = ''
 
         call_hook(ui['normal_username'], ui['normal_password'])
 
@@ -874,6 +924,8 @@ def main_dict_to_ui(data):
     else:
         ui['normal_password'] = ''
 
+    ui['_client_secret'] = data.get('@client_secret', '')
+
     # additional configs
     for name, value in list(data.items()):
         if not name.startswith('@_'):
@@ -904,10 +956,10 @@ def motion_camera_ui_to_dict(ui, prev_config=None):
     deviceNameFailMessage = _(
         'Device names are only allowed to contain alphanumerical characters, hyphen -, underscore _, plus +, and space'
     )
-    filenameValidRegExp = '^([A-Za-z0-9 ()/._-]|%[CYmdHMSqv])+$'
+    filenameValidRegExp = '^([A-Za-z0-9 ()/._-]|%[CYmdHMSqv$])+$'
     filenameFailMessage = _(
         'File names are only allowed to contain alphanumerical characters, parenthesis (), forward slash /, dot ., '
-        'underscore _, hyphen -, space, and a subset of motion conversion specifiers: %C %Y %m %d %H %M %S %q %v'
+        'underscore _, hyphen -, space, and a subset of motion conversion specifiers: %C %Y %m %d %H %M %S %q %v %$'
     )
     dirnameValidRegExp = '^[A-Za-z0-9 ()/._-]+$'
     dirnameFailMessage = _(
@@ -2055,64 +2107,56 @@ def invalidate_monitor_commands():
     _monitor_command_cache.clear()
 
 
-def backup():
+def backup() -> Optional[bytes]:
     logging.debug('generating config backup file')
 
-    if len(os.listdir(settings.CONF_PATH)) > 100:
-        logging.debug(
-            f'config path "{settings.CONF_PATH}" appears to be a system-wide config directory, performing a selective backup'
-        )
-
-        cmd = ['tar', 'zc', 'motion.conf']
-        cmd += list(
-            map(
-                os.path.basename,
-                glob.glob(os.path.join(settings.CONF_PATH, 'camera-*.conf')),
-            )
-        )
-        try:
-            content = utils.call_subprocess(cmd, cwd=settings.CONF_PATH, encoding=None)
-            logging.debug(f'backup file created ({len(content)} bytes)')
-
-            return content
-
-        except Exception as e:
-            logging.error(f'backup failed: {e}', exc_info=True)
-
-            return None
-
-    else:
-        logging.debug(
-            f'config path "{settings.CONF_PATH}" appears to be a motion-specific config directory, performing a full backup'
-        )
-
-        try:
-            content = utils.call_subprocess(
-                ['tar', 'zc', '.'], cwd=settings.CONF_PATH, encoding=None
-            )
-            logging.debug(f'backup file created ({len(content)} bytes)')
-
-            return content
-
-        except Exception as e:
-            logging.error(f'backup failed: {e}', exc_info=True)
-
-            return None
-
-
-def restore(content):
-    logging.info('restoring config from backup file')
-
-    cmd = ['tar', 'zxC', settings.CONF_PATH]
+    files = [
+        f
+        for p in ('motion.conf', 'camera-*.conf', 'mask_*.pgm', 'prefs.json')
+        for f in glob(os.path.join(settings.CONF_PATH, p))
+    ]
 
     try:
-        p = subprocess.Popen(
-            cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-        )
-        msg = p.communicate(content)[0]
-        if msg:
-            logging.error(f'failed to restore configuration: {msg}')
-            return False
+        buf = BytesIO()
+        with tarfile.open(fileobj=buf, mode='w:gz') as tf:
+            for f in files:
+                tf.add(f, arcname=os.path.basename(f))
+
+        logging.debug(f'backup file created ({buf.tell()} bytes)')
+
+        return buf.getvalue()
+
+    except Exception as e:
+        logging.error(f'backup failed: {e}', exc_info=True)
+
+        return None
+
+
+def restore(content: bytes) -> Optional[dict]:
+    logging.info('restoring config from backup file')
+
+    patterns = ['motion.conf', 'camera-*.conf', 'mask_*.pgm', 'prefs.json']
+
+    try:
+        with tarfile.open(fileobj=BytesIO(content)) as tf:
+            members = []
+            for m in tf.getmembers():  # use filter='data' once we require Python 3.12+
+                if not m.isfile():
+                    continue
+
+                # allow leading ./ to support full dir backups from v0.44.0b1 and earlier
+                name = m.name
+                while name.startswith('./'):
+                    name = name[2:]
+
+                # refuse any other directory structure, needed since fnmatchcase() * matches / as well
+                if '/' in name:
+                    continue
+
+                if any(fnmatchcase(name, p) for p in patterns):
+                    members.append(m)
+
+            tf.extractall(settings.CONF_PATH, members=members)  # nosec B202
 
         logging.debug('configuration restored successfully')
 
@@ -2122,7 +2166,7 @@ def restore(content):
                 PowerControl.reboot()
 
             io_loop = IOLoop.current()
-            io_loop.add_timeout(datetime.timedelta(seconds=2), later)
+            io_loop.add_timeout(timedelta(seconds=2), later)
 
         else:
             invalidate()
@@ -2188,7 +2232,7 @@ def _conf_to_dict(lines, list_names=None, no_convert=None):
     if no_convert is None:
         no_convert = []
 
-    data = collections.OrderedDict()
+    data = OrderedDict()
 
     for line in lines:
         line = line.strip()
@@ -2228,7 +2272,7 @@ def _dict_to_conf(lines, data, list_names=None):
         list_names = []
 
     conf_lines = []
-    remaining = collections.OrderedDict(data)
+    remaining = OrderedDict(data)
     processed = set()
 
     # parse existing lines and replace the values
@@ -2476,7 +2520,7 @@ def get_additional_structure(camera, separators=False):
         )
 
         # gather sections
-        sections = collections.OrderedDict()
+        sections = OrderedDict()
         for func in _additional_section_funcs:
             result = func()
             if not result:
@@ -2493,7 +2537,7 @@ def get_additional_structure(camera, separators=False):
 
             logging.debug(f"additional config section: {result['name']}")
 
-        configs = collections.OrderedDict()
+        configs = OrderedDict()
         for func in _additional_config_funcs:
             result = func()
             if not result:
@@ -2526,7 +2570,7 @@ def _get_additional_config(data, camera_id=None):
 
     sections, configs = get_additional_structure(camera=bool(camera_id))
     get_funcs = {c.get('get') for c in list(configs.values()) if c.get('get')}
-    get_func_values = collections.OrderedDict((f, f(*args)) for f in get_funcs)
+    get_func_values = OrderedDict((f, f(*args)) for f in get_funcs)
 
     for name, section in list(sections.items()):
         if not section.get('get'):
@@ -2554,7 +2598,7 @@ def _set_additional_config(data, camera_id=None):
 
     sections, configs = get_additional_structure(camera=bool(camera_id))
 
-    set_func_values = collections.OrderedDict()
+    set_func_values = OrderedDict()
     for name, section in list(sections.items()):
         if not section.get('set'):
             continue
@@ -2583,3 +2627,21 @@ def _set_additional_config(data, camera_id=None):
 
     for func, value in list(set_func_values.items()):
         func(*(args + [value]))
+
+
+def set_admin_password(password):
+    main_config = get_main()
+    if password:
+        main_config['@admin_password'] = ph.hash(password)
+    else:
+        main_config['@admin_password'] = ''
+    set_main(main_config)
+
+
+def set_normal_password(password):
+    main_config = get_main()
+    if password:
+        main_config['@normal_password'] = ph.hash(password)
+    else:
+        main_config['@normal_password'] = ''
+    set_main(main_config)

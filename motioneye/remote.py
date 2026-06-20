@@ -17,11 +17,14 @@
 import json
 import logging
 import re
-from typing import Union
+from time import time
+from typing import Optional
+from urllib.parse import urlencode
 
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest, HTTPResponse
 
 from motioneye import settings, utils
+from motioneye.utils.authstate import generate_hmac_signature, generate_nonce
 
 _DOUBLE_SLASH_REGEX = re.compile('//+')
 
@@ -30,8 +33,7 @@ def _make_request(
     scheme,
     host,
     port,
-    username,
-    password,
+    remote_secret,
     path,
     method='GET',
     data=None,
@@ -40,29 +42,31 @@ def _make_request(
     content_type=None,
 ):
     path = _DOUBLE_SLASH_REGEX.sub('/', path)
-    url = '{scheme}://{host}{port}{path}'.format(
-        scheme=scheme, host=host, port=':' + str(port) if port else '', path=path or ''
+    query = dict(query or {})
+    qs = urlencode(query)
+    uri = (path + ('&' if '?' in path else '?') + qs) if qs else path
+
+    url = '{scheme}://{host}{port}{uri}'.format(
+        scheme=scheme, host=host, port=':' + str(port) if port else '', uri=uri or ''
     )
 
-    query = dict(query or {})
-    query['_username'] = username or ''
-    query['_admin'] = 'true'  # always use the admin account
-
-    if url.count('?'):
-        url += '&'
-
-    else:
-        url += '?'
-
-    url += '&'.join([(n + '=' + v) for (n, v) in list(query.items())])
-    url += '&_signature=' + utils.compute_signature(method, url, data, password)
-
-    if timeout is None:
-        timeout = settings.REMOTE_REQUEST_TIMEOUT
-
+    # Use HMAC authentication instead of query parameters
     headers = {}
     if content_type:
         headers['Content-Type'] = content_type
+
+    if remote_secret:
+        timestamp = str(int(time()))
+        nonce = generate_nonce()
+        signature = generate_hmac_signature(
+            remote_secret, method, uri, timestamp, nonce, data
+        )
+
+        headers['X-HMAC-Signature'] = signature
+        headers['X-Timestamp'] = timestamp
+        headers['X-Nonce'] = nonce
+    if timeout is None:
+        timeout = settings.REMOTE_REQUEST_TIMEOUT
 
     return HTTPRequest(
         url,
@@ -82,7 +86,6 @@ async def _send_request(request: HTTPRequest) -> HTTPResponse:
         response = await AsyncHTTPClient().fetch(request, raise_error=False)
 
         if response.code != 200:
-
             decoded = json.loads(response.body)
             if decoded['error'] == 'unauthorized':
                 response.error = Exception('Authentication Error')
@@ -132,8 +135,7 @@ def _remote_params(local_config):
         local_config.get('@scheme', local_config.get('scheme')) or 'http',
         local_config.get('@host', local_config.get('host')),
         local_config.get('@port', local_config.get('port')),
-        local_config.get('@username', local_config.get('username')),
-        local_config.get('@password', local_config.get('password')),
+        local_config.get('@remote_secret', local_config.get('remote_secret')),
         local_config.get('@path', local_config.get('path')) or '',
         local_config.get('@remote_camera_id', local_config.get('remote_camera_id')),
     ]
@@ -144,6 +146,9 @@ def _remote_params(local_config):
     if params[4] is not None:
         params[4] = str(params[4])
 
+    if params[5] is not None:
+        params[5] = str(params[5])
+
     return params
 
 
@@ -152,7 +157,7 @@ def make_camera_response(c):
 
 
 async def list_cameras(local_config) -> utils.GetCamerasResponse:
-    scheme, host, port, username, password, path, _ = _remote_params(local_config)
+    scheme, host, port, remote_secret, path, _ = _remote_params(local_config)
 
     logging.debug(
         'listing remote cameras on {url}'.format(
@@ -160,9 +165,7 @@ async def list_cameras(local_config) -> utils.GetCamerasResponse:
         )
     )
 
-    request = _make_request(
-        scheme, host, port, username, password, path + '/config/list/'
-    )
+    request = _make_request(scheme, host, port, remote_secret, path + '/config/list/')
 
     response = await _send_request(request)
 
@@ -202,9 +205,7 @@ async def list_cameras(local_config) -> utils.GetCamerasResponse:
 
 
 async def get_config(local_config) -> utils.GetConfigResponse:
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'getting config for remote camera {id} on {url}'.format(
@@ -213,7 +214,7 @@ async def get_config(local_config) -> utils.GetConfigResponse:
     )
 
     request = _make_request(
-        scheme, host, port, username, password, path + f'/config/{camera_id}/get/'
+        scheme, host, port, remote_secret, path + f'/config/{camera_id}/get/'
     )
     response = await _send_request(request)
 
@@ -247,12 +248,11 @@ async def get_config(local_config) -> utils.GetConfigResponse:
         return utils.GetConfigResponse(remote_ui_config=response, error=None)
 
 
-async def set_config(local_config, ui_config) -> Union[str, None]:
+async def set_config(local_config, ui_config) -> Optional[str]:
     scheme = local_config.get('@scheme', local_config.get('scheme'))
     host = local_config.get('@host', local_config.get('host'))
     port = local_config.get('@port', local_config.get('port'))
-    username = local_config.get('@username', local_config.get('username'))
-    password = local_config.get('@password', local_config.get('password'))
+    remote_secret = local_config.get('@remote_secret')
     path = local_config.get('@path', local_config.get('path')) or ''
     camera_id = local_config.get(
         '@remote_camera_id', local_config.get('remote_camera_id')
@@ -271,8 +271,7 @@ async def set_config(local_config, ui_config) -> Union[str, None]:
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         p,
         method='POST',
         data=ui_config.encode(),
@@ -297,9 +296,7 @@ async def set_config(local_config, ui_config) -> Union[str, None]:
 
 
 async def test(local_config, data) -> utils.CommonExternalResponse:
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
     what = data['what']
     logging.debug(
         'testing {what} on remote camera {id}, on {url}'.format(
@@ -314,8 +311,7 @@ async def test(local_config, data) -> utils.CommonExternalResponse:
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         p,
         method='POST',
         data=data,
@@ -344,9 +340,7 @@ async def test(local_config, data) -> utils.CommonExternalResponse:
 async def get_current_picture(
     local_config, width, height
 ) -> utils.GetCurrentPictureResponse:
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'getting current picture for remote camera {id} on {url}'.format(
@@ -364,7 +358,7 @@ async def get_current_picture(
 
     p = path + f'/picture/{camera_id}/current/'
 
-    request = _make_request(scheme, host, port, username, password, p, query=query)
+    request = _make_request(scheme, host, port, remote_secret, p, query=query)
     response = await _send_request(request)
 
     cookies = utils.parse_cookies(response.headers.get_list('Set-Cookie'))
@@ -393,13 +387,11 @@ async def get_current_picture(
 
 
 async def list_media(
-    local_config, media_type, prefix: str | None = None
+    local_config, media_type, prefix: Optional[str] = None
 ) -> utils.ListMediaResponse:
     utils.validate_paths(prefix)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'getting media list for remote camera {id} on {url}'.format(
@@ -417,8 +409,7 @@ async def list_media(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         p,
         query=query,
         timeout=10 * settings.REMOTE_REQUEST_TIMEOUT,
@@ -455,9 +446,7 @@ async def get_media_content(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(filename)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'downloading file {filename} of remote camera {id} on {url}'.format(
@@ -474,8 +463,7 @@ async def get_media_content(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         path,
         timeout=10 * settings.REMOTE_REQUEST_TIMEOUT,
     )
@@ -500,9 +488,7 @@ async def make_zipped_content(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(group)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'preparing zip file for group "{group}" of remote camera {id} on {url}'.format(
@@ -521,8 +507,7 @@ async def make_zipped_content(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         prepare_path,
         timeout=100 * settings.REMOTE_REQUEST_TIMEOUT,
     )
@@ -563,9 +548,7 @@ async def get_zipped_content(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(group)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'downloading zip file for remote camera {id} on {url}'.format(
@@ -581,8 +564,7 @@ async def get_zipped_content(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         p,
         timeout=10 * settings.REMOTE_REQUEST_TIMEOUT,
     )
@@ -612,9 +594,7 @@ async def make_timelapse_movie(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(group)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     msg = (
         'making timelapse movie for group "%(group)s" of remote camera %(id)s '
@@ -640,8 +620,7 @@ async def make_timelapse_movie(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         path,
         timeout=100 * settings.REMOTE_REQUEST_TIMEOUT,
     )
@@ -685,9 +664,7 @@ async def check_timelapse_movie(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(group)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'checking timelapse movie status for remote camera {id} on {url}'.format(
@@ -698,7 +675,7 @@ async def check_timelapse_movie(
     p = path + '/picture/{id}/timelapse/{group}/?check=true'.format(
         id=camera_id, group=group
     )
-    request = _make_request(scheme, host, port, username, password, p)
+    request = _make_request(scheme, host, port, remote_secret, p)
     response = await _send_request(request)
 
     if response.error:
@@ -733,9 +710,7 @@ async def get_timelapse_movie(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(group)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'downloading timelapse movie for remote camera {id} on {url}'.format(
@@ -751,8 +726,7 @@ async def get_timelapse_movie(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         p,
         timeout=10 * settings.REMOTE_REQUEST_TIMEOUT,
     )
@@ -782,9 +756,7 @@ async def get_media_preview(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(filename)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'getting file preview for {filename} of remote camera {id} on {url}'.format(
@@ -804,7 +776,7 @@ async def get_media_preview(
     if height:
         query['height'] = str(height)
 
-    request = _make_request(scheme, host, port, username, password, path, query=query)
+    request = _make_request(scheme, host, port, remote_secret, path, query=query)
     response = await _send_request(request)
     if response.error:
         logging.error(
@@ -826,9 +798,7 @@ async def del_media_content(
 ) -> utils.CommonExternalResponse:
     utils.validate_paths(filename)
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'deleting file {filename} of remote camera {id} on {url}'.format(
@@ -844,8 +814,7 @@ async def del_media_content(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         path,
         method='POST',
         data='{}',
@@ -874,9 +843,7 @@ async def del_media_group(
     if '..' in group.split('/'):
         raise Exception(f'Path traversal detected in group "{group}"')
 
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'deleting group "{group}" of remote camera {id} on {url}'.format(
@@ -894,8 +861,7 @@ async def del_media_group(
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         path,
         method='POST',
         data='{}',
@@ -919,9 +885,7 @@ async def del_media_group(
 
 
 async def exec_action(local_config, action) -> utils.CommonExternalResponse:
-    scheme, host, port, username, password, path, camera_id = _remote_params(
-        local_config
-    )
+    scheme, host, port, remote_secret, path, camera_id = _remote_params(local_config)
 
     logging.debug(
         'executing action "{action}" of remote camera {id} on {url}'.format(
@@ -935,8 +899,7 @@ async def exec_action(local_config, action) -> utils.CommonExternalResponse:
         scheme,
         host,
         port,
-        username,
-        password,
+        remote_secret,
         path,
         method='POST',
         data='{}',
